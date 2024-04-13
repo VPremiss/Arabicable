@@ -1,0 +1,79 @@
+{
+    "name": "vpremiss/arabicable",
+    "description": "Some efficient approaches to dealing with Arabic text.",
+    "keywords": [
+        "VPremiss",
+        "laravel",
+        "arabicable"
+    ],
+    "homepage": "https://github.com/VPremiss/Arabicable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "GoodM4ven",
+            "email": "GoodM4ven@proton.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "spatie/laravel-package-tools": "^1.16",
+        "illuminate/contracts": "^11.0",
+        "caneara/quest": "^4.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^2.9",
+        "laravel/pint": "^1.14",
+        "nunomaduro/collision": "^8.1.1||^7.10.0",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-arch": "^2.7",
+        "pestphp/pest-plugin-laravel": "^2.3",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpstan/phpstan-phpunit": "^1.3"
+    },
+    "autoload": {
+        "files": [
+            "src/functions.php"
+        ],
+        "psr-4": {
+            "VPremiss\\Arabicable\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VPremiss\\Arabicable\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse",
+        "lint": [
+            "@php vendor/bin/pint",
+            "@php vendor/bin/phpstan analyse"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "VPremiss\\Arabicable\\ArabicableServiceProvider"
+            ],
+            "aliases": {
+                "Arabicable": "VPremiss\\Arabicable\\Facades\\Arabicable",
+                "Arabic": "VPremiss\\Arabicable\\Facades\\Arabic"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
