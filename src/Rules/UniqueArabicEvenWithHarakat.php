@@ -24,18 +24,21 @@ class UniqueArabicEvenWithHarakat implements ValidationRule
         $model = $this->modelClass;
         $property = $this->propertyName ?? $attribute;
 
-        if (!class_exists($model)) {
+        if (! class_exists($model)) {
             $fail("The model class '{$model}' for :attribute does not exist.");
+
             return;
         }
 
-        if (!method_exists($model, 'getTable') || empty($table = $model::getTable())) {
+        if (! method_exists($model, 'getTable') || empty($table = $model::getTable())) {
             $fail("The model '$model' for :attribute does not have getTable method.");
+
             return;
         }
 
-        if (!DB::getSchemaBuilder()->hasColumn($table, $property)) {
+        if (! DB::getSchemaBuilder()->hasColumn($table, $property)) {
             $fail("The table '$table' does not have :attribute column.");
+
             return;
         }
 

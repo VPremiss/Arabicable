@@ -12,7 +12,7 @@ if (function_exists('ar_indian')) {
             throw new ArabicableConfigurationException('The configuration suffix key for Indian numerals is empty!');
         }
 
-        return $property . $indianColumnAffix;
+        return $property.$indianColumnAffix;
     }
 }
 
@@ -25,7 +25,7 @@ if (function_exists('ar_with_harakat')) {
             throw new ArabicableConfigurationException('The configuration suffix key for Arabic with harakat text is empty!');
         }
 
-        return $property . $withHarakatColumnAffix;
+        return $property.$withHarakatColumnAffix;
     }
 }
 
@@ -38,6 +38,6 @@ if (function_exists('ar_searchable')) {
             throw new ArabicableConfigurationException('The configuration suffix key for Arabic searchable text is empty!');
         }
 
-        return $property . $searchableColumnAffix;
+        return $property.$searchableColumnAffix;
     }
 }

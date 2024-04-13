@@ -6,6 +6,7 @@ namespace VPremiss\Arabicable;
 class Arabic extends Text
 {
     public const HARAKAT = ['ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ', 'ـ', 'ٗ'];
+
     public const ARABIC_PUNCTUATION_MARKS = ['؟', '،', '؛'];
 
     public function removeHarakat(string $text): string

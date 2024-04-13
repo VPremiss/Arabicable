@@ -24,7 +24,7 @@ class ModelArabicObserver
         $attributes = $model->getAttributes();
 
         foreach ($attributes as $key => $value) {
-            if (!$checkDirty || $model->isDirty($key)) {
+            if (! $checkDirty || $model->isDirty($key)) {
                 if ($this->shouldHandleArabic($tableName, $key)) {
                     $this->updateArabicAttributes($model, $key, $value);
                 } elseif ($this->shouldHandleIndianNumbers($tableName, $key)) {
@@ -36,7 +36,7 @@ class ModelArabicObserver
 
     protected function shouldHandleArabic($tableName, $key)
     {
-        return Schema::hasColumn($tableName, ar_with_harakat($key)) 
+        return Schema::hasColumn($tableName, ar_with_harakat($key))
             && Schema::hasColumn($tableName, ar_searchable($key));
     }
 

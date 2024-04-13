@@ -6,7 +6,7 @@ trait HandlesSpaces
 {
     public function addSpacesAroundPunctuationMarks(string $text): string
     {
-        return preg_replace('/(\s*)([' . implode('', static::PUNCTUATION_MARKS) . '])/u', ' $2', $text);
+        return preg_replace('/(\s*)(['.implode('', static::PUNCTUATION_MARKS).'])/u', ' $2', $text);
     }
 
     public function addSpacesForColonsAfterDoubleQuotes(string $text): string
@@ -24,7 +24,7 @@ trait HandlesSpaces
         $pattern = '/\s*"\s*(.*?)\s*"\s*/u';
 
         return preg_replace_callback($pattern, function ($matches) {
-            return '"' . trim($matches[1]) . '"';
+            return '"'.trim($matches[1]).'"';
         }, $text);
     }
 }

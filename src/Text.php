@@ -2,14 +2,13 @@
 
 namespace VPremiss\Arabicable;
 
-use VPremiss\Arabicable\Concerns;
-
 class Text
 {
     use Concerns\HandlesNumerals;
     use Concerns\HandlesSpaces;
 
     public const PUNCTUATION_MARKS = ['.', '!', ':', ',', '-'];
+
     public const ENCLOSING_MARKS = ['\'', '"', '⦘', '⦗', '(', ')', '»', '«', '{', '}', '[', ']'];
 
     public function removePunctuationMarks(string $text): string
