@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string addSpacesForColonsAfterDoubleQuotes(string $text)
  * @method static string removeEmptySpaces(string $text)
  * @method static string removeSpacesWithinQuotes(string $text)
- * 
+ *
  * @see \VPremiss\Arabicable\Text
  */
 class Text extends Facade

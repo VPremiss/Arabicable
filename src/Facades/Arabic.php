@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string removeHarakat(string $text)
  * @method static string normalizeHuroof(string $text)
  * @method static string convertToFasila(string $text)
- * 
+ *
  * @see \VPremiss\Arabicable\Arabic
  */
 class Arabic extends Facade
