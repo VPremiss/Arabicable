@@ -1,10 +1,11 @@
 {
     "name": "vpremiss/arabicable",
-    "description": "Some efficient approaches to dealing with Arabic text.",
+    "description": "Advanced techniques for handling Arabic text in Laravel apps.",
     "keywords": [
-        "VPremiss",
+        "vpremiss",
+        "arabicable",
         "laravel",
-        "arabicable"
+        "arabic"
     ],
     "homepage": "https://github.com/VPremiss/Arabicable",
     "license": "MIT",
@@ -22,10 +23,10 @@
         "caneara/quest": "^4.0"
     },
     "require-dev": {
-        "larastan/larastan": "^2.9",
         "laravel/pint": "^1.14",
-        "nunomaduro/collision": "^8.1.1||^7.10.0",
-        "orchestra/testbench": "^9.0",
+        "nunomaduro/collision": "^8.1.1",
+        "larastan/larastan": "^2.9",
+        "orchestra/testbench": "^9.0.0",
         "pestphp/pest": "^2.34",
         "pestphp/pest-plugin-arch": "^2.7",
         "pestphp/pest-plugin-laravel": "^2.3",
@@ -47,14 +48,10 @@
         }
     },
     "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint",
-        "analyse": "vendor/bin/phpstan analyse",
-        "lint": [
-            "@php vendor/bin/pint",
-            "@php vendor/bin/phpstan analyse"
-        ]
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,
@@ -69,8 +66,9 @@
                 "VPremiss\\Arabicable\\ArabicableServiceProvider"
             ],
             "aliases": {
-                "Arabicable": "VPremiss\\Arabicable\\Facades\\Arabicable",
-                "Arabic": "VPremiss\\Arabicable\\Facades\\Arabic"
+                "Arabic": "VPremiss\\Arabicable\\Facades\\Arabic",
+                "ArabicFilter": "VPremiss\\Arabicable\\Facades\\ArabicFilter",
+                "Text": "VPremiss\\Arabicable\\Facades\\Text"
             }
         }
     },

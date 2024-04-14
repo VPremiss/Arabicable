@@ -1,4 +1,4 @@
-name: Fix PHP code style issues
+name: Style PHP code using Laravel Pint
 
 on:
   push:
@@ -25,4 +25,4 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Fix styling
+          commit_message: Style with Pint
