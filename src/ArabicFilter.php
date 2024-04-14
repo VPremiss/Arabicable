@@ -10,8 +10,8 @@ class ArabicFilter
     {
         $text = Arabic::removeHarakat($text);
         $text = Arabic::removePunctuationMarks($text);
-        $text = Arabic::duplicateNumerals($text);
-        $text = Arabic::removeDuplicateNumerals($text);
+        $text = Arabic::convertNumeralsToArabicAndIndianSequences($text);
+        $text = Arabic::deduplicateArabicAndIndianNumeralSequences($text);
         $text = Arabic::normalizeHuroof($text);
         $text = Arabic::removeEnclosingMarks($text);
         $text = Arabic::removeEmptySpaces($text);

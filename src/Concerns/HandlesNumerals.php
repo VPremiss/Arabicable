@@ -13,7 +13,7 @@ trait HandlesNumerals
         return strtr($text, array_combine(static::INDIAN_NUMERALS, static::ARABIC_NUMERALS));
     }
 
-    public function duplicateNumerals(string $text): string
+    public function convertNumeralsToArabicAndIndianSequences(string $text): string
     {
         $originalTextHasArabicNumerals = preg_match('/['.implode('', static::ARABIC_NUMERALS).']/u', $text);
         $originalTextHasIndianNumerals = preg_match('/['.implode('', static::INDIAN_NUMERALS).']/', $text);
@@ -39,7 +39,7 @@ trait HandlesNumerals
         return $text;
     }
 
-    public function removeDuplicateNumerals($text)
+    public function deduplicateArabicAndIndianNumeralSequences(string $text): string
     {
         $pattern = "/\d+|[\x{0660}-\x{0669}]+/u";
 
