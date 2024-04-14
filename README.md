@@ -123,17 +123,17 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
   <br>
 
-  | **Text Facade Methods**                            | Description                                                                          |
-  |-----------------------------------|--------------------------------------------------------------------------------------|
-  | `removePunctuationMarks`          | Removes common punctuation marks from the text.                                      |
-  | `removeEnclosingMarks`            | Removes enclosing marks like quotes and brackets from the text.                      |
-  | `addSpacesAroundPunctuationMarks` | Adds spaces around punctuation marks.                                                |
-  | `addSpacesForColonsAfterDoubleQuotes` | Adds a space after colons that follow double quotes.                                |
-  | `removeEmptySpaces`               | Removes extra spaces, leaving only single spaces between words.                       |
-  | `removeSpacesWithinQuotes`        | Removes all spaces within quotes, keeping the text tightly together.                  |
-  | `convertNumeralsToIndian`         | Converts Western numerals to their Indian numeral equivalents.                        |
-  | `duplicateNumerals`               | Duplicates numerals in the text, appending the duplicate after a space.               |
-  | `removeDuplicateNumerals`         | Removes duplicate numerals and consolidates numerals at the end of the text.          |
+  | **Text Facade Methods**                             | Description                                                                          |
+  |-----------------------------------------------------|--------------------------------------------------------------------------------------|
+  | `removePunctuationMarks`                           | Removes common punctuation marks from the text.                                      |
+  | `removeEnclosingMarks`                             | Removes enclosing marks like quotes and brackets from the text.                      |
+  | `addSpacesAroundPunctuationMarks`                  | Adds spaces around punctuation marks.                                                |
+  | `addSpacesForColonsAfterDoubleQuotes`              | Adds a space after colons that follow double quotes.                                 |
+  | `removeEmptySpaces`                                | Removes extra spaces, leaving only single spaces between words.                      |
+  | `removeSpacesWithinQuotes`                         | Removes all spaces within quotes, keeping the text tightly together.                  |
+  | `convertNumeralsToIndian`                          | Converts Western numerals to their Indian numeral equivalents.                        |
+  | `convertNumeralsToArabicAndIndianSequences`        | Translates each sequence of numerals in the text to both Arabic and Indian numerals, appending both versions side by side. |
+  | `deduplicateArabicAndIndianNumeralSequences`       | Deduplicates numeral sequences in the text and consolidates them at the end of the text, ensuring only unique numeral sequences are present. |
 
   <br>
 
