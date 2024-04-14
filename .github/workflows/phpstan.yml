@@ -1,4 +1,4 @@
-name: PHPStan
+name: Analyse PHP code using LaraStan
 
 on:
   push:

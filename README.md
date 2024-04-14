@@ -14,11 +14,11 @@ Several effective strategies for managing Arabic text.
 
 ## Description
 
-The gist of the matter here is to rely on the database to store variances of each Arabic or Indian numeral field. Having their dedicated fields makes indexing and searching efficient. And while utilizing Laravel's Eloquent [observers](https://laravel.com/docs/eloquent#observers), we can process only what's necessary again during updates.
+The gist of the matter here is to rely on the database to store variances of each Arabic or Indian numeral field. Having their dedicated fields makes indexing and searching efficient; combined with the right choosing from all available migration types based on character capactiy. And while utilizing Laravel's Eloquent [observers](https://laravel.com/docs/eloquent#observers), we can process only what's necessary again during updates.
 
-Based on your model's property length, we've added migration blueprint [macros](src/Concerns/HasArabicBlueprintMacros.php) for Arabic string, tinyText, text, mediumText, and longText; plus an date for Indian numerals. Using those would generate 2 extra columns for each arabic (of a **customizable** affix) column. And 1 for the indian date (`column_indian`) column to hold that in.
+So based on the model's property length requirement, we've added migration blueprint [macros](src/Concerns/HasArabicBlueprintMacros.php) for Arabic string, tinyText, text, mediumText, and longText; plus a date one for Indian numerals. Using those string or text ones would generate 2 extra columns for each arabic column (a [configurable](config/arabicable.php) **affix**, that is). And the indian date one would generate a `column_indian` to hold that in.
 
-Finally, take a look at the API methods below to understand what kind of processing we're doing on the text in order to preserve the `column` (without harakat), the `column_with_harakat`, and the `column_searchable` that's prepared exactly for that.
+Finally, take a look at the list of offered methods below (the [API](#API) section) to understand what kind of processing we're doing on the text in order to essentially preserve the `column` (without harakat), the `column_with_harakat`, and the `column_searchable` that's well-prepared exactly for that...
 
 
 ## Installation
@@ -31,7 +31,7 @@ Finally, take a look at the API methods below to understand what kind of process
   composer require vpremiss/arabicable
   ```
 
-- Publish the [config file](config/arabicable.php) using this Artisan command:
+- Publish the [config file](config/arabicable.php) using this [Artisan](https://laravel.com/docs/artisan) command:
 
   ```bash
   php artisan vendor:publish --tag="arabicable-config"
@@ -42,9 +42,12 @@ Finally, take a look at the API methods below to understand what kind of process
 
 Alright, so let's imagine we have Note(s) and we want to have their content arabicable!
 
-- First create add an arabicable column to its migration:
+- First create add an arabicable column to its [migration](https://laravel.com/docs/migrations):
 
   ```php
+  use Illuminate\Database\Schema\Blueprint;
+  use Illuminate\Support\Facades\Schema; 
+  // ...
   Schema::create('notes', function (Blueprint $table) {
       $table->id();
       $table->arabicText('content'); // this also creates `content_searchable` and `content_with_harakat` of the same type
@@ -62,7 +65,7 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
   {
       use Arabicable;
 
-      protected $fillable = ['content']; // or youu'd guard the property differently
+      protected $fillable = ['content']; // or you'd guard the property differently
   }
   ```
 
@@ -72,17 +75,17 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
   $note = Note::create([
       'content' => '"الجَمَاعَةُ مَا وَافَقَ الحَقّ ، أَنْتَ الجَمَاعَةُ وَلَو كُنْتَ وَحْدَكْ ."',
   ]);
-  
+
   echo $note->content; // TODO
   echo $note->{ar_with_harakat('content')}; // TODO
   echo $note->{ar_searchable('content')}; // TODO
   ```
 
-> [!NOTE]<br>Notice how we can use the global helper functions (`ar_with_harakat`, `ar_searchable`, and `ar_indian`) to get the corresponding property name quickly.
+  > [!NOTE]<br>Notice how we can use the global helper functions (`ar_with_harakat`, `ar_searchable`, and `ar_indian`) to get the corresponding property name quickly.
 
 ## API
 
-- Here is a table of all the available [custom](src/Concerns/HasArabicBlueprintMacros.php) Blueprint migration macro columns:
+- Here is a table of all the available [custom](src/Concerns/HasArabicBlueprintMacros.php) migration blueprint macro columns:
 
   | Macro Name         | MySQL Type     | Maximum Characters or Size               |
   |--------------------|----------------|---------------------------------------------------|
@@ -95,16 +98,16 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
   - And keep in mind the following:
 
-    - Each can be passed `$isNullable` boolean argument, which affects **all** columns.
-    - Each can be passed `$isUnique` boolean argument, which affects the **original** column.
-    - `arabicString` does have `$length` integer argument. 
-    - Both `arabicString` and `arabicTinyText` can be passed `$supportsFullSearch` argument, affecting their **'searchable'** column. 
-    - Finally `arabicText`, `arabicMediumText`, and `arabicLongText` all have full-text search index created on their **'searchable'** column.
+    - Each can be passed an `$isNullable` boolean argument, which affects **all** columns.
+    - Each can be passed an `$isUnique` boolean argument, which affects the **original** column.
+    - `arabicString` can be passed a `$length` integer argument. 
+    - Both `arabicString` and `arabicTinyText` can be passed a `$supportsFullSearch` argument, affecting their **'searchable'** column. 
+    - Finally `arabicText`, `arabicMediumText`, and `arabicLongText` all do have full-text search index set on their **'searchable'** column.
 
 
 - Below are the tables of all the `Arabicable` package helpers:
 
-  | ArabicFilter Methods                           | Description                                                                                     |
+  | **ArabicFilter Facade Methods**                           | Description                                                                                     |
   |----------------------------------|-------------------------------------------------------------------------------------------------|
   | `forSearch`               | Prepares text for searching by removing various characters and normalizing numerals and letters. |
   | `withHarakat`             | Prepares text with Harakat, adjusts numeral formats, and formats spacing and punctuation.       |
@@ -112,7 +115,7 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
   <br>
 
-  | Arabic Methods (extends Text)                            | Description                                                                          |
+  | **Arabic Facade Methods** (extends Text)                            | Description                                                                          |
   |-----------------------------------|--------------------------------------------------------------------------------------|
   | `removeHarakat`                   | Removes diacritic marks from Arabic text.                                            |
   | `normalizeHuroof`                 | Normalizes Arabic letters to a consistent form.                                      |
@@ -120,7 +123,7 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
   <br>
 
-  | Text Methods                            | Description                                                                          |
+  | **Text Facade Methods**                            | Description                                                                          |
   |-----------------------------------|--------------------------------------------------------------------------------------|
   | `removePunctuationMarks`          | Removes common punctuation marks from the text.                                      |
   | `removeEnclosingMarks`            | Removes enclosing marks like quotes and brackets from the text.                      |
@@ -136,12 +139,14 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
 ### Changelogs
 
-You can check out the [[CHANGELOG.md]](CHANGELOG.md) file to track down all the package updates.
+You can check out the package's [changelogs](https://app.whatthediff.ai/changelog/github/VPremiss/Arabicable) online via WTD.
 
 
 ## Support
 
-Support the maintenance as well as the development of [other projects](https://github.com/sponsors/VPremiss) through sponsorship or one-time [donations](https://github.com/sponsors/VPremiss?frequency=one-time&sponsor=VPremiss).
+Support ongoing package maintenance as well as the development of **other projects** through [sponsorship](https://github.com/sponsors/VPremiss) or one-time [donations](https://github.com/sponsors/VPremiss?frequency=one-time&sponsor=VPremiss) if you prefer.
+
+And may Allah accept your strive; aameen.
 
 ### License
 
@@ -149,9 +154,11 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 
 ### Credits
 
+- [Quest](https://github.com/caneara/quest) package
 - [ChatGPT](https://chat.openai.com)
 - [Laravel](https://github.com/Laravel)
-- [Quest](https://github.com/caneara/quest) package
+- [Spatie](https://github.com/spatie)
+- [WTD](https://whatthediff.ai)
 - [All Contributors](../../contributors)
 - And the generous individuals that we've learned from and been supported by throughout our journey...
 
