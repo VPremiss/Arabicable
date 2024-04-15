@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string removeHarakat(string $text)
+ * @method static string removeArabicPunctuationMarks(string $text)
  * @method static string normalizeHuroof(string $text)
  * @method static string convertToFasila(string $text)
  * @method static string removePunctuationMarks(string $text)
