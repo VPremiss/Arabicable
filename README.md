@@ -73,12 +73,12 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
   ```php
   $note = Note::create([
-      'content' => '"الجَمَاعَةُ مَا وَافَقَ الحَقّ ، أَنْتَ الجَمَاعَةُ وَلَو كُنْتَ وَحْدَكْ ."',
+      'content' => '"الجَمَاعَةُ مَا وَافَقَ الحَقّ، أَنْتَ الجَمَاعَةُ وَلَو كُنْتَ وَحْدَكْ."',
   ]);
 
-  echo $note->content; // TODO
-  echo $note->{ar_with_harakat('content')}; // TODO
-  echo $note->{ar_searchable('content')}; // TODO
+  echo $note->content; // "الجماعة ما وافق الحق ، أنت الجماعة ولو كنت وحدك ."
+  echo $note->{ar_with_harakat('content')}; // "الجَمَاعَةُ مَا وَافَقَ الحَقّ ، أَنْتَ الجَمَاعَةُ وَلَو كُنْتَ وَحْدَكْ ."
+  echo $note->{ar_searchable('content')}; // "الجماعة ما وافق الحق انت الجماعة ولو كنت وحدك"
   ```
 
   > [!NOTE]<br>Notice how we can use the global helper functions (`ar_with_harakat`, `ar_searchable`, and `ar_indian`) to get the corresponding property name quickly.
