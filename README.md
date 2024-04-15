@@ -6,10 +6,9 @@
 
 Several effective strategies for managing Arabic text.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=flat-square)](https://packagist.org/packages/vpremiss/arabicable)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/vpremiss/arabicable/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=flat-square)](https://packagist.org/packages/vpremiss/arabicable)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge)](https://packagist.org/packages/vpremiss/arabicable)
+[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=darkgoldenrod)](https://packagist.org/packages/vpremiss/arabicable)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/run-tests.yml?branch=main&label=tests&style=for-the-badge&color=darkgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
 
 
 ## Description
