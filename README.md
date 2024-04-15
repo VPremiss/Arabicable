@@ -158,6 +158,7 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 - [ChatGPT](https://chat.openai.com)
 - [Laravel](https://github.com/Laravel)
 - [Spatie](https://github.com/spatie)
+- [Graphite](https://graphite.dev)
 - [WTD](https://whatthediff.ai)
 - [All Contributors](../../contributors)
 - And the generous individuals that we've learned from and been supported by throughout our journey...
