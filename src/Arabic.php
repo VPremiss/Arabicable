@@ -14,6 +14,11 @@ class Arabic extends Text
         return strtr($text, array_fill_keys(self::HARAKAT, ''));
     }
 
+    public function removeArabicPunctuationMarks(string $text): string
+    {
+        return strtr($text, array_fill_keys(self::ARABIC_PUNCTUATION_MARKS, ''));
+    }
+
     public function normalizeHuroof(string $text): string
     {
         $huroof = ['أ', 'ى', 'إ', 'ٕ ', 'ﭐ', 'ﭑ'];

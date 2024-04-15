@@ -6,19 +6,6 @@ use VPremiss\Arabicable\Facades\Arabic;
 
 class ArabicFilter
 {
-    public function forSearch(string $text): string
-    {
-        $text = Arabic::removeHarakat($text);
-        $text = Arabic::removePunctuationMarks($text);
-        $text = Arabic::convertNumeralsToArabicAndIndianSequences($text);
-        $text = Arabic::deduplicateArabicAndIndianNumeralSequences($text);
-        $text = Arabic::normalizeHuroof($text);
-        $text = Arabic::removeEnclosingMarks($text);
-        $text = Arabic::removeEmptySpaces($text);
-
-        return $text;
-    }
-
     public function withHarakat(string $text): string
     {
         $text = Arabic::convertNumeralsToIndian($text);
@@ -38,6 +25,20 @@ class ArabicFilter
         $text = Arabic::removeSpacesWithinQuotes($text);
         $text = Arabic::addSpacesAroundPunctuationMarks($text);
         $text = Arabic::addSpacesForColonsAfterDoubleQuotes($text);
+
+        return $text;
+    }
+
+    public function forSearch(string $text): string
+    {
+        $text = Arabic::removeHarakat($text);
+        $text = Arabic::removePunctuationMarks($text);
+        $text = Arabic::removeArabicPunctuationMarks($text);
+        $text = Arabic::convertNumeralsToArabicAndIndianSequences($text);
+        $text = Arabic::deduplicateArabicAndIndianNumeralSequences($text);
+        $text = Arabic::normalizeHuroof($text);
+        $text = Arabic::removeEnclosingMarks($text);
+        $text = Arabic::removeEmptySpaces($text);
 
         return $text;
     }
