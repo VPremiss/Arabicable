@@ -105,9 +105,9 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
   // قال المزني سالت الشافعي عن مسالة في الكلام فقال سلني عن شيء اذا اخطات فيه قلت اخطات ولا تسالني عن شيء اذا اخطات فيه قلت كفرت
   ```
 
-  > [!NOTE]<br>Notice how we can use the global helper functions (`ar_with_harakat`, `ar_searchable`, and `ar_indian`) to get the corresponding property name quickly.
+>[!NOTE]<br>Notice how we can use the global helper functions (`ar_with_harakat`, `ar_searchable`, and `ar_indian`) to get the corresponding property name quickly.
 
-  > [!IMPORTANT]<br>A validation method is employed during text processing to ensure that the text is free of punctuation anomalies that could impact spacing adjustments.
+> [!IMPORTANT]<br>A validation method is employed during text processing to ensure that the text is free of punctuation anomalies that could impact spacing adjustments.
 
 
 ## API
