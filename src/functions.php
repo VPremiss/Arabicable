@@ -1,6 +1,7 @@
 <?php
 
-use VPremiss\Arabicable\Exceptions\ArabicableConfigurationException;
+declare(strict_types=1);
+
 use VPremiss\Arabicable\Exceptions\ArabicableFunctionExistsException;
 
 if (function_exists('ar_indian')) {
@@ -8,11 +9,7 @@ if (function_exists('ar_indian')) {
 } else {
     function ar_indian(string $property): string
     {
-        if (empty($indianColumnAffix = config('arabicable.property_suffix_keys.numbers_to_indian'))) {
-            throw new ArabicableConfigurationException('The configuration suffix key for Indian numerals is empty!');
-        }
-
-        return $property.$indianColumnAffix;
+        return $property . config('arabicable.property_suffix_keys.numbers_to_indian');
     }
 }
 
@@ -21,11 +18,7 @@ if (function_exists('ar_with_harakat')) {
 } else {
     function ar_with_harakat(string $property): string
     {
-        if (empty($withHarakatColumnAffix = config('arabicable.property_suffix_keys.text_with_harakat'))) {
-            throw new ArabicableConfigurationException('The configuration suffix key for Arabic with harakat text is empty!');
-        }
-
-        return $property.$withHarakatColumnAffix;
+        return $property . config('arabicable.property_suffix_keys.text_with_harakat');
     }
 }
 
@@ -34,10 +27,6 @@ if (function_exists('ar_searchable')) {
 } else {
     function ar_searchable(string $property): string
     {
-        if (empty($searchableColumnAffix = config('arabicable.property_suffix_keys.text_for_search'))) {
-            throw new ArabicableConfigurationException('The configuration suffix key for Arabic searchable text is empty!');
-        }
-
-        return $property.$searchableColumnAffix;
+        return $property . config('arabicable.property_suffix_keys.text_for_search');
     }
 }

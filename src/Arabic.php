@@ -1,22 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VPremiss\Arabicable;
 
 // TODO consider some python pyarabic package methods and consts maybe?
-class Arabic extends Text
+class Arabic
 {
-    public const HARAKAT = ['ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ', 'ـ', 'ٗ'];
+    use Concerns\HandlesNumerals;
+    use Concerns\HandlesPunctuation;
+    use Concerns\HandlesSpaces;
 
-    public const ARABIC_PUNCTUATION_MARKS = ['؟', '،', '؛'];
+    public const HARAKAT = ['ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ', 'ـ', 'ٗ'];
 
     public function removeHarakat(string $text): string
     {
-        return strtr($text, array_fill_keys(self::HARAKAT, ''));
-    }
-
-    public function removeArabicPunctuationMarks(string $text): string
-    {
-        return strtr($text, array_fill_keys(self::ARABIC_PUNCTUATION_MARKS, ''));
+        return strtr($text, array_fill_keys(static::HARAKAT, ''));
     }
 
     public function normalizeHuroof(string $text): string
@@ -29,10 +28,5 @@ class Arabic extends Text
         $text = strtr($text, array_fill_keys($huroof, 'ء'));
 
         return $text;
-    }
-
-    public function convertToFasila(string $text): string
-    {
-        return strtr($text, [',' => '،']);
     }
 }
