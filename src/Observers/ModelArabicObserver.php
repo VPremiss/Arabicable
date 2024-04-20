@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VPremiss\Arabicable\Observers;
 
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +26,7 @@ class ModelArabicObserver
         $attributes = $model->getAttributes();
 
         foreach ($attributes as $key => $value) {
-            if (! $checkDirty || $model->isDirty($key)) {
+            if (!$checkDirty || $model->isDirty($key)) {
                 if ($this->shouldHandleArabic($tableName, $key)) {
                     $this->updateArabicAttributes($model, $key, $value);
                 } elseif ($this->shouldHandleIndianNumbers($tableName, $key)) {

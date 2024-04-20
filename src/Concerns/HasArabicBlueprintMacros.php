@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VPremiss\Arabicable\Concerns;
 
 use Illuminate\Database\Schema\Blueprint;
