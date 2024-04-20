@@ -29,7 +29,7 @@ return [
      |
      */
 
-    'spacing_after_punctuation_only' => true,
+    'spacing_after_punctuation_only' => false,
 
     /*
      |--------------------------------------------------------------------------
