@@ -14,7 +14,7 @@ trait HasInitialValidations
         $this->validateSpacingAfterPunctuationOnlyConfig();
         $this->validateNormalizedPunctuationMarksConfig();
         $this->validateSpacePreservedEnclosingsConfig();
-        $this->validateCommonArabicTextModelConfig();
+        $this->validateCommonArabicTextConfig();
     }
 
     protected function validatePropertySuffixKeysConfig()
@@ -93,14 +93,28 @@ trait HasInitialValidations
         }
     }
 
-    protected function validateCommonArabicTextModelConfig()
+    protected function validateCommonArabicTextConfig()
     {
-        $model = config('arabicable.common_arabic_text_model');
+        $array = config('arabicable.common_arabic_text');
 
-        if (!is_null($model) && !is_string($model)) {
+        if (!is_null($array) && !is_array($array) && !filled($array)) {
             throw new ArabicableConfigurationException(
-                'The common Arabic text model (string or null) configuration is not found.'
+                'The common Arabic text (filled array or null) configuration is not found.'
             );
+        }
+
+        foreach ($array as $namespace) {
+            if (!is_string($namespace) && empty($namespace)) {
+                throw new ArabicableConfigurationException(
+                    'One of the common Arabic text configuration namespaces is either non-string or empty.'
+                );
+            }
+
+            if (!class_exists($namespace)) {
+                throw new ArabicableConfigurationException(
+                    'One of the common Arabic text configuration namespaces is not pointing to an existing class.'
+                );
+            }
         }
     }
 }

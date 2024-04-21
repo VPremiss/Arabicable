@@ -11,7 +11,7 @@ class CommonArabicTextFactory extends Factory
 {
     public function modelName()
     {
-        return config('arabicable.common_arabic_text_model', CommonArabicText::class);
+        return config('arabicable.common_arabic_text.model', CommonArabicText::class);
     }
 
     public function definition()

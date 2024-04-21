@@ -67,16 +67,19 @@ return [
 
     /*
      |--------------------------------------------------------------------------
-     | Common Arabic Text Model (null|string) [namespace]
+     | Common Arabic Text (null|array<string, string>) [namespaces]
      |--------------------------------------------------------------------------
      |
-     | Point towards the model for common Arabic text, which is to be used for
-     | for search-filtering purposes.
+     | Point towards the common Arabic text model and factory, which is to be
+     | used for search-filtering purposes.
      |
-     | If set to `null`, it we'll fallback to the package's.
+     | If set to `null`, it we'll fallback to the package defaults.
      |
      */
 
-    'common_arabic_text_model' => \VPremiss\Arabicable\Models\CommonArabicText::class,
+    'common_arabic_text' => [
+        'model' => \VPremiss\Arabicable\Models\CommonArabicText::class,
+        'factory' => \VPremiss\Arabicable\Database\Factories\CommonArabicTextFactory::class,
+    ],
 
 ];

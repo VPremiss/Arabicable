@@ -15,7 +15,7 @@ class CommonArabicTextSeeder extends Seeder
      */
     public function run(): void
     {
-        $commonArabicTextModel = config('arabicable.common_arabic_text_model', CommonArabicText::class);
+        $commonArabicTextModel = config('arabicable.common_arabic_text.model', CommonArabicText::class);
 
         $commonArabicTextModel::factory()->create(['content' => 'رسول الله صلى الله عليه وسلم']);
     }
