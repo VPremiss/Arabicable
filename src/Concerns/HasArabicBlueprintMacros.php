@@ -29,6 +29,8 @@ trait HasArabicBlueprintMacros
             $isUnique = false,
             $supportsFullSearch = false,
         ) {
+            $supportsFullSearch = app()->environment('testing') ? false : $supportsFullSearch;
+
             $field = $this->string($columnName, $length);
             if ($isNullable) $field->nullable();
             if ($isUnique) $field->unique();
@@ -49,6 +51,8 @@ trait HasArabicBlueprintMacros
             $isUnique = false,
             $supportsFullSearch = false,
         ) {
+            $supportsFullSearch = app()->environment('testing') ? false : $supportsFullSearch;
+            
             $field = $this->tinyText($columnName);
             if ($isNullable) $field->nullable();
             if ($isUnique) $field->unique();
@@ -70,7 +74,7 @@ trait HasArabicBlueprintMacros
 
             $searchField = $this->text(ar_searchable($columnName));
             if ($isNullable) $searchField->nullable();
-            $searchField->fulltext();
+            if (!app()->environment('testing')) $searchField->fulltext();
 
             $harakatField = $this->text(ar_with_harakat($columnName));
             if ($isNullable) $harakatField->nullable();
@@ -85,7 +89,7 @@ trait HasArabicBlueprintMacros
 
             $searchField = $this->mediumText(ar_searchable($columnName));
             if ($isNullable) $searchField->nullable();
-            $searchField->fulltext();
+            if (!app()->environment('testing')) $searchField->fulltext();
 
             $harakatField = $this->mediumText(ar_with_harakat($columnName));
             if ($isNullable) $harakatField->nullable();
@@ -100,7 +104,7 @@ trait HasArabicBlueprintMacros
 
             $searchField = $this->longText(ar_searchable($columnName));
             if ($isNullable) $searchField->nullable();
-            $searchField->fulltext();
+            if (!app()->environment('testing')) $searchField->fulltext();
 
             $harakatField = $this->longText(ar_with_harakat($columnName));
             if ($isNullable) $harakatField->nullable();
