@@ -28,21 +28,23 @@ Finally, take a look at the list of offered methods below (the [API](#API) secti
   composer require vpremiss/arabicable
   ```
 
-- Publish the [config file](config/arabicable.php) using this [Artisan](https://laravel.com/docs/artisan) command:
+>[!NOTE]The config file as well as the migration table will be published automatically.
+
+- Run the package [Artisan](https://laravel.com/docs/artisan) installer using this command:
 
   ```bash
-  php artisan vendor:publish --tag="arabicable-config"
+  php artisan arabicable:install
   ```
 
-### Upgrade
+### Upgrading (from v1)
 
 - First, make you sure you copy or memorize your current [config/arabicable.php](config/arabicable.php) configuration.
 
 - Then just ensure that the package configuration is re-published using this Artisan command:
 
-```bash
-php artisan vendor:publish --tag="arabicable-config" --force
-```
+  ```bash
+  php artisan vendor:publish --tag="arabicable-config" --force
+  ```
 
 
 ## Usage

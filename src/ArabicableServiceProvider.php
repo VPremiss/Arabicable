@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use VPremiss\Arabicable\Concerns\HasArabicBlueprintMacros;
@@ -23,7 +24,24 @@ class ArabicableServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('arabicable')
-            ->hasConfigFile();
+            ->hasConfigFile()
+            ->hasMigration('create_common_arabic_texts_table')
+            ->hasInstallCommand(function(InstallCommand $command) {
+                $command->publishConfigFile();
+
+                $command->publishMigrations();
+                $command->askToRunMigrations();
+
+                $this->publishes([
+                    __DIR__.'/../database/seeders/CommonArabicTextSeeder.php' => database_path('seeders/CommonArabicTextSeeder.php'),
+                ], 'arabicable-seeders');
+                $command->publish('seeders');
+                $command->startWith(
+                    fn (InstallCommand $command) => $command->call('db:seed', ['--force', '--class' => 'CommonArabicTextSeeder'])
+                );
+
+                $command->askToStarRepoOnGitHub('VPremiss/Arabicable');
+            });
     }
 
     public function bootingPackage()
