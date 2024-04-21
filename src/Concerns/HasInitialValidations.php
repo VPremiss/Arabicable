@@ -14,6 +14,7 @@ trait HasInitialValidations
         $this->validateSpacingAfterPunctuationOnlyConfig();
         $this->validateNormalizedPunctuationMarksConfig();
         $this->validateSpacePreservedEnclosingsConfig();
+        $this->validateCommonArabicTextModelConfig();
     }
 
     protected function validatePropertySuffixKeysConfig()
@@ -89,6 +90,17 @@ trait HasInitialValidations
                     'Space-preserved enclosings array configuration contains a non-string value!'
                 );
             }
+        }
+    }
+
+    protected function validateCommonArabicTextModelConfig()
+    {
+        $model = config('arabicable.common_arabic_text_model');
+
+        if (!is_null($model) && !is_string($model)) {
+            throw new ArabicableConfigurationException(
+                'The common Arabic text model (string or null) configuration is not found.'
+            );
         }
     }
 }

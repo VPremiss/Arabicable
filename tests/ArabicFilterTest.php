@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Config;
 use VPremiss\Arabicable\Facades\ArabicFilter;
+use VPremiss\Arabicable\Models\CommonArabicText;
 
 it('can format the Arabic text into a suitable one with harakat', function () {
     Config::set('arabicable.spacing_after_punctuation_only', false);
@@ -83,4 +86,10 @@ Arabic;
     $text = ArabicFilter::forSearch($arabic);
 
     expect($text)->toBe($expectedText);
+});
+
+
+
+it('will have the database seeded with common arabic texts', function () {
+    expect(CommonArabicText::count())->toBeGreaterThan(0);
 });
