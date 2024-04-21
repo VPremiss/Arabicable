@@ -11,13 +11,13 @@ trait HasArabicBlueprintMacros
     public function arabicBlueprintMacros()
     {
         Blueprint::macro('indianDate', function (string $columnName, $isNullable = false, $isUnique = false) {
-            $this->date($columnName)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($isUnique, fn ($field) => $field->unique());
+            $field = $this->date($columnName);
+            if ($isNullable) $field->nullable();
+            if ($isUnique) $field->unique();
 
-            $this->string(ar_indian($columnName), 10)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($isUnique, fn ($field) => $field->unique());
+            $indianField = $this->string(ar_indian($columnName), 10);
+            if ($isNullable) $indianField->nullable();
+            if ($isUnique) $indianField->unique();
 
             return $this;
         });
@@ -29,16 +29,16 @@ trait HasArabicBlueprintMacros
             $isUnique = false,
             $supportsFullSearch = false,
         ) {
-            $this->string($columnName, $length)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($isUnique, fn ($field) => $field->unique());
+            $field = $this->string($columnName, $length);
+            if ($isNullable) $field->nullable();
+            if ($isUnique) $field->unique();
 
-            $this->string(ar_searchable($columnName), $length)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($supportsFullSearch, fn ($field) => $field->fulltext());
+            $searchField = $this->string(ar_searchable($columnName), $length);
+            if ($isNullable) $searchField->nullable();
+            if ($supportsFullSearch) $searchField->fulltext();
 
-            $this->string(ar_with_harakat($columnName), $length)
-                ->when($isNullable, fn ($field) => $field->nullable());
+            $harakatField = $this->string(ar_with_harakat($columnName), $length);
+            if ($isNullable) $harakatField->nullable();
 
             return $this;
         });
@@ -49,61 +49,61 @@ trait HasArabicBlueprintMacros
             $isUnique = false,
             $supportsFullSearch = false,
         ) {
-            $this->tinyText($columnName)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($isUnique, fn ($field) => $field->unique());
+            $field = $this->tinyText($columnName);
+            if ($isNullable) $field->nullable();
+            if ($isUnique) $field->unique();
 
-            $this->tinyText(ar_searchable($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($supportsFullSearch, fn ($field) => $field->fulltext());
+            $searchField = $this->tinyText(ar_searchable($columnName));
+            if ($isNullable) $searchField->nullable();
+            if ($supportsFullSearch) $searchField->fulltext();
 
-            $this->tinyText(ar_with_harakat($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable());
+            $harakatField = $this->tinyText(ar_with_harakat($columnName));
+            if ($isNullable) $harakatField->nullable();
 
             return $this;
         });
 
         Blueprint::macro('arabicText', function (string $columnName, $isNullable = false, $isUnique = false) {
-            $this->text($columnName)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($isUnique, fn ($field) => $field->unique());
+            $field = $this->text($columnName);
+            if ($isNullable) $field->nullable();
+            if ($isUnique) $field->unique();
 
-            $this->text(ar_searchable($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->fulltext();
+            $searchField = $this->text(ar_searchable($columnName));
+            if ($isNullable) $searchField->nullable();
+            $searchField->fulltext();
 
-            $this->text(ar_with_harakat($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable());
+            $harakatField = $this->text(ar_with_harakat($columnName));
+            if ($isNullable) $harakatField->nullable();
 
             return $this;
         });
 
         Blueprint::macro('arabicMediumText', function (string $columnName, $isNullable = false, $isUnique = false) {
-            $this->mediumText($columnName)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($isUnique, fn ($field) => $field->unique());
+            $field = $this->mediumText($columnName);
+            if ($isNullable) $field->nullable();
+            if ($isUnique) $field->unique();
 
-            $this->mediumText(ar_searchable($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->fulltext();
+            $searchField = $this->mediumText(ar_searchable($columnName));
+            if ($isNullable) $searchField->nullable();
+            $searchField->fulltext();
 
-            $this->mediumText(ar_with_harakat($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable());
+            $harakatField = $this->mediumText(ar_with_harakat($columnName));
+            if ($isNullable) $harakatField->nullable();
 
             return $this;
         });
 
         Blueprint::macro('arabicLongText', function (string $columnName, $isNullable = false, $isUnique = false) {
-            $this->longText($columnName)
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->when($isUnique, fn ($field) => $field->unique());
+            $field = $this->longText($columnName);
+            if ($isNullable) $field->nullable();
+            if ($isUnique) $field->unique();
 
-            $this->longText(ar_searchable($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable())
-                ->fulltext();
+            $searchField = $this->longText(ar_searchable($columnName));
+            if ($isNullable) $searchField->nullable();
+            $searchField->fulltext();
 
-            $this->longText(ar_with_harakat($columnName))
-                ->when($isNullable, fn ($field) => $field->nullable());
+            $harakatField = $this->longText(ar_with_harakat($columnName));
+            if ($isNullable) $harakatField->nullable();
 
             return $this;
         });
