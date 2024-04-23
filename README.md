@@ -7,8 +7,8 @@
 Several effective strategies for managing Arabic text.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge)](https://packagist.org/packages/vpremiss/arabicable)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/run-tests.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=darkgoldenrod)](https://packagist.org/packages/vpremiss/arabicable)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/run-tests.yml?branch=main&label=tests&style=for-the-badge&color=darkgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
 
 
 ## Description
@@ -186,11 +186,14 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 - [Graphite](https://graphite.dev)
 - [WTD](https://whatthediff.ai)
 - [All Contributors](../../contributors)
-- [Quest](https://github.com/caneara/quest) package
-- [LinuxScout](https://github.com/linuxscout)
-- [AR-PHP](https://github.com/khaled-alshamaa/ar-php)
-- [AR-PHP-Laravel](https://github.com/still-code/ar-php-laravel)
 - And the generous individuals that we've learned from and been supported by throughout our journey...
+
+### Inspiration
+
+- [LinuxScout](https://github.com/linuxscout)
+- [Quest](https://github.com/caneara/quest) package
+- [AR-PHP](https://github.com/khaled-alshamaa/ar-php) package
+- [AR-PHP-Laravel](https://github.com/still-code/ar-php-laravel) package
 
 
 <div align="center">
