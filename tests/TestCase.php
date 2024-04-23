@@ -10,8 +10,6 @@ use VPremiss\Arabicable\ArabicableServiceProvider;
 use VPremiss\Arabicable\Concerns\HasArabicBlueprintMacros;
 use VPremiss\Arabicable\Database\Seeders\CommonArabicTextSeeder;
 
-use function Orchestra\Testbench\artisan;
-
 class TestCase extends Orchestra
 {
     use HasArabicBlueprintMacros;
@@ -24,14 +22,7 @@ class TestCase extends Orchestra
             fn (string $modelName) => 'VPremiss\\Arabicable\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
 
-        artisan(
-            $this,
-            'db:seed',
-            [
-                '--force',
-                '--class' => CommonArabicTextSeeder::class,
-            ],
-        );
+        $this->seed(CommonArabicTextSeeder::class);
     }
 
     protected function getPackageProviders($app)

@@ -35,10 +35,12 @@ class ArabicableServiceProvider extends PackageServiceProvider
                 $command->askToRunMigrations();
 
                 if (!app()->environment('testing')) {
+                    // Publish the seeder file
                     $this->publishes([
                         __DIR__.'/../database/seeders/CommonArabicTextSeeder.php' => ($seederPath = database_path('seeders/CommonArabicTextSeeder.php')),
                     ], 'arabicable-seeders');
                     $command->publish('seeders');
+                    // Correct the seeder's namespace
                     File::put(
                         $seederPath,
                         str_replace(
@@ -47,12 +49,24 @@ class ArabicableServiceProvider extends PackageServiceProvider
                             File::get($seederPath),
                         ),
                     );
+                    // Seed into the database
                     $command->startWith(
                         fn (InstallCommand $command) => $command->call('db:seed', [
                             '--class' => 'CommonArabicTextSeeder',
                             '--force',
                         ])
                     );
+                    // Prepend into the DatabaseSeeder for continuous migration upon `fresh`ing
+                    if (File::exists($databaseSeederPath = database_path('seeders/DatabaseSeeder.php'))) {
+                        File::put(
+                            $databaseSeederPath,
+                            str_replace(
+                                'public function run() {',
+                                "public function run() {\n        \$this->call(CommonArabicTextSeeder::class);",
+                                File::get($databaseSeederPath),
+                            ),
+                        );
+                    }
                 }
 
                 $command->askToStarRepoOnGitHub('vpremiss/arabicable');
