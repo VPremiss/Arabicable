@@ -28,7 +28,7 @@ class ArabicableServiceProvider extends PackageServiceProvider
             ->name('arabicable')
             ->hasConfigFile()
             ->hasMigration('create_common_arabic_texts_table')
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command->publishConfigFile();
 
                 $command->publishMigrations();
@@ -37,25 +37,29 @@ class ArabicableServiceProvider extends PackageServiceProvider
                 if (!app()->environment('testing')) {
                     // Publish the seeder file
                     $this->publishes([
-                        __DIR__.'/../database/seeders/CommonArabicTextSeeder.php' => ($seederPath = database_path('seeders/CommonArabicTextSeeder.php')),
+                        __DIR__ . '/../database/seeders/CommonArabicTextSeeder.php' => ($seederPath = database_path('seeders/CommonArabicTextSeeder.php')),
                     ], 'arabicable-seeders');
                     $command->publish('seeders');
-                    // Correct the seeder's namespace
-                    File::put(
-                        $seederPath,
-                        str_replace(
-                            'namespace VPremiss\Arabicable\Database\Seeders;',
-                            'namespace Database\Seeders;',
-                            File::get($seederPath),
-                        ),
-                    );
-                    // Seed into the database
-                    $command->startWith(
-                        fn (InstallCommand $command) => $command->call('db:seed', [
-                            '--class' => 'CommonArabicTextSeeder',
-                            '--force',
-                        ])
-                    );
+
+                    if (File::exists($seederPath)) {
+                        // Correct the seeder's namespace
+                        File::put(
+                            $seederPath,
+                            str_replace(
+                                'namespace VPremiss\Arabicable\Database\Seeders;',
+                                'namespace Database\Seeders;',
+                                File::get($seederPath),
+                            ),
+                        );
+                        // Seed into the database
+                        $command->startWith(
+                            fn (InstallCommand $command) => $command->call('db:seed', [
+                                '--class' => 'CommonArabicTextSeeder',
+                                '--force',
+                            ])
+                        );
+                    }
+
                     // Prepend into the DatabaseSeeder for continuous migration upon `fresh`ing
                     if (File::exists($databaseSeederPath = database_path('seeders/DatabaseSeeder.php'))) {
                         File::put(
