@@ -36,7 +36,7 @@ Finally, take a look at the list of offered methods below (the [API](#API) secti
   php artisan arabicable:install
   ```
 
-### Upgrading (from v1)
+### Upgrading
 
 - First, make you sure you copy or memorize your current [config/arabicable.php](config/arabicable.php) configuration.
 
@@ -44,6 +44,8 @@ Finally, take a look at the list of offered methods below (the [API](#API) secti
 
   ```bash
   php artisan vendor:publish --tag="arabicable-config" --force
+  php artisan vendor:publish --tag="arabicable-migrations" --force
+  php artisan vendor:publish --tag="arabicable-seeders" --force
   ```
 
 
