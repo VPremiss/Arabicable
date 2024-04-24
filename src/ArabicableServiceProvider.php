@@ -62,15 +62,24 @@ class ArabicableServiceProvider extends PackageServiceProvider implements Config
                     }
 
                     // Prepend into the DatabaseSeeder for continuous migration upon `fresh`ing
-                    if (File::exists($databaseSeederPath = database_path('seeders/DatabaseSeeder.php'))) {
-                        File::put(
-                            $databaseSeederPath,
-                            str_replace(
-                                'public function run() {',
-                                "public function run() {\n        \$this->call(CommonArabicTextSeeder::class);",
-                                File::get($databaseSeederPath),
-                            ),
-                        );
+                    if (File::exists($databaseSeederPath = database_path("seeders/DatabaseSeeder.php"))) {
+                        $fileContents = File::get($databaseSeederPath);
+
+                        if (strpos($fileContents, "\$this->call(CommonArabicTextSeeder::class);") === false) {
+                            $searchPattern = strpos($fileContents, "public function run(): void\n    {") !== false ?
+                                "public function run(): void\n    {" :
+                                "public function run()\n    {";
+                            $replacePattern = $searchPattern === "public function run(): void\n    {" ?
+                                "public function run(): void\n    {\n        \$this->call(CommonArabicTextSeeder::class);" :
+                                "public function run()\n    {\n        \$this->call(CommonArabicTextSeeder::class);";
+                            $newContents = str_replace(
+                                $searchPattern,
+                                $replacePattern,
+                                $fileContents
+                            );
+
+                            File::put($databaseSeederPath, $newContents);
+                        }
                     }
                 }
 

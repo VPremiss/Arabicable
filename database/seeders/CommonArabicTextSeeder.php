@@ -7,7 +7,6 @@ namespace VPremiss\Arabicable\Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use VPremiss\Arabicable\Facades\ArabicFilter;
-use VPremiss\Arabicable\Models\CommonArabicText;
 use VPremiss\Crafty\Facades\Crafty;
 
 class CommonArabicTextSeeder extends Seeder
