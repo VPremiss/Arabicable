@@ -38,9 +38,9 @@ Finally, take a look at the list of offered methods below (the [API](#API) secti
 
 ### Upgrading
 
-- First, make you sure you copy or memorize your current [config/arabicable.php](config/arabicable.php) configuration.
+- First, backup your current [config](config/arabicable.php), as well as the common-Arabic-text migration and seeder.
 
-- Then just ensure that the package configuration is re-published using this Artisan command:
+- Then just ensure that those are re-published using this Artisan command:
 
   ```bash
   php artisan vendor:publish --tag="arabicable-config" --force
