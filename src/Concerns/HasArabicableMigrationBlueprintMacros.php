@@ -6,9 +6,9 @@ namespace VPremiss\Arabicable\Concerns;
 
 use Illuminate\Database\Schema\Blueprint;
 
-trait HasArabicBlueprintMacros
+trait HasArabicableMigrationBlueprintMacros
 {
-    public function arabicBlueprintMacros()
+    public function arabicableMigrationBlueprintMacros()
     {
         Blueprint::macro('indianDate', function (string $columnName, $isNullable = false, $isUnique = false) {
             $field = $this->date($columnName);

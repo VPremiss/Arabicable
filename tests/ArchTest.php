@@ -11,3 +11,7 @@ arch('it will not use debugging functions')
         'echo',
     ])
     ->each->not->toBeUsed();
+
+arch('it uses strict typing everywhere')
+    ->expect('VPremiss\\Arabicable')
+    ->toUseStrictTypes();

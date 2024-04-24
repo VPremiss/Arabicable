@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace VPremiss\Arabicable\Concerns;
+namespace VPremiss\Arabicable\Support\Concerns;
 
 trait HandlesNumerals
 {

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable;
 
+use VPremiss\Arabicable\Support\Concerns;
+
 // TODO consider some python pyarabic package methods and consts maybe?
 class Arabic
 {

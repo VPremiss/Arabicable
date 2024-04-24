@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace VPremiss\Arabicable\Models;
 
 use VPremiss\Arabicable\Traits\Arabicable;
@@ -7,7 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Searchable;
-use VPremiss\Arabicable\Database\Factories\CommonArabicTextFactory;
+use VPremiss\Arabicable\ArabicableServiceProvider;
+use VPremiss\Crafty\Facades\CraftyPackage;
 
 class CommonArabicText extends Model
 {
@@ -18,7 +21,7 @@ class CommonArabicText extends Model
 
     protected static function newFactory()
     {
-        return config('arabicable.common_arabic_text.factory', CommonArabicTextFactory::class)::new();
+        return CraftyPackage::validatedConfig('arabicable.common_arabic_text.factory', ArabicableServiceProvider::class)::new();
     }
 
     #[SearchUsingFullText(['content_searchable'])]

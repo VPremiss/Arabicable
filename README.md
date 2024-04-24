@@ -8,14 +8,14 @@ Several effective strategies for managing Arabic text.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge)](https://packagist.org/packages/vpremiss/arabicable)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/run-tests.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=darkgoldenrod)](https://packagist.org/packages/vpremiss/arabicable)
+[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=b07d00)](https://packagist.org/packages/vpremiss/arabicable)
 
 
 ## Description
 
 The gist of the matter here is to rely on the database to store variances of each Arabic or Indian numeral field. Having their dedicated fields makes indexing and searching efficient; combined with the right choosing from all available migration types based on character capactiy. And while utilizing Laravel's Eloquent [observers](https://laravel.com/docs/eloquent#observers), we can process only what's necessary again during updates.
 
-So based on the model's property length requirement, we've added migration blueprint [macros](src/Concerns/HasArabicBlueprintMacros.php) for Arabic string, tinyText, text, mediumText, and longText; plus a date one for Indian numerals. Using those string or text ones would generate 2 extra columns for each arabic column (a [configurable](config/arabicable.php) **affix**, that is). And the indian date one would generate a `column_indian` to hold that in.
+So based on the model's property length requirement, we've added migration blueprint [macros](src/Concerns/HasArabicableMigrationBlueprintMacros.php) for Arabic string, tinyText, text, mediumText, and longText; plus a date one for Indian numerals. Using those string or text ones would generate 2 extra columns for each arabic column (a [configurable](config/arabicable.php) **affix**, that is). And the indian date one would generate a `column_indian` to hold that in.
 
 Finally, take a look at the list of offered methods below (the [API](#API) section) to understand what kind of processing we're doing on the text in order to essentially preserve the `column` (without harakat), the `column_with_harakat`, and the `column_searchable` that's well-prepared exactly for that...
 
@@ -114,7 +114,7 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
 ## API
 
-- Here is a table of all the available [custom](src/Concerns/HasArabicBlueprintMacros.php) migration blueprint macro columns:
+- Here is a table of all the available [custom](src/Concerns/HasArabicableMigrationBlueprintMacros.php) migration blueprint macro columns:
 
   | Macro Name         | MySQL Type     | Maximum Characters or Size               |
   |--------------------|----------------|---------------------------------------------------|

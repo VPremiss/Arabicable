@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace VPremiss\Arabicable\Concerns;
+namespace VPremiss\Arabicable\Support\Concerns;
+
+use VPremiss\Arabicable\ArabicableServiceProvider;
+use VPremiss\Crafty\Facades\CraftyPackage;
 
 trait HandlesPunctuation
 {
@@ -58,7 +61,10 @@ trait HandlesPunctuation
     {
         $text = str_replace(static::FOREIGN_PUNCTUATION_MARKS, static::ARABIC_PUNCTUATION_MARKS, $text);
 
-        if ($normalizedMarks = config('arabicable.normalized_punctuation_marks')) {
+        if ($normalizedMarks = CraftyPackage::validatedConfig(
+            'arabicable.normalized_punctuation_marks',
+            ArabicableServiceProvider::class
+        )) {
             foreach ($normalizedMarks as $mark => $fromOthers) {
                 $text = str_replace($fromOthers, $mark, $text);
             }

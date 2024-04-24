@@ -7,12 +7,12 @@ namespace VPremiss\Arabicable\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use VPremiss\Arabicable\ArabicableServiceProvider;
-use VPremiss\Arabicable\Concerns\HasArabicBlueprintMacros;
+use VPremiss\Arabicable\Concerns\HasArabicableMigrationBlueprintMacros;
 use VPremiss\Arabicable\Database\Seeders\CommonArabicTextSeeder;
 
 class TestCase extends Orchestra
 {
-    use HasArabicBlueprintMacros;
+    use HasArabicableMigrationBlueprintMacros;
 
     protected function setUp(): void
     {
@@ -34,7 +34,7 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        $this->arabicBlueprintMacros();
+        $this->arabicableMigrationBlueprintMacros();
 
         config()->set('database.default', 'testing');
 

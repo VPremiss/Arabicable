@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace VPremiss\Arabicable\Exceptions;
+namespace VPremiss\Arabicable\Support\Exceptions;
 
 use Exception;
 
 class ArabicableTextValidationException extends Exception
 {
-    //
 }

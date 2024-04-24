@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace VPremiss\Arabicable\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use VPremiss\Arabicable\Models\CommonArabicText;
+use VPremiss\Arabicable\ArabicableServiceProvider;
+use VPremiss\Crafty\Facades\CraftyPackage;
 
 class CommonArabicTextFactory extends Factory
 {
     public function modelName()
     {
-        return config('arabicable.common_arabic_text.model', CommonArabicText::class);
+        return CraftyPackage::validatedConfig('arabicable.common_arabic_text.model', ArabicableServiceProvider::class);
     }
 
     public function definition()
