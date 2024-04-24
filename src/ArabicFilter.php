@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace VPremiss\Arabicable;
 
 use VPremiss\Arabicable\Facades\Arabic;
+use VPremiss\Crafty\Facades\CraftyPackage;
 
 class ArabicFilter
 {
@@ -17,7 +18,7 @@ class ArabicFilter
         $text = Arabic::convertPunctuationMarksToArabic($text);
         $text = Arabic::removeSpacesAroundPunctuationMarks($text);
 
-        if (!config('arabicable.spacing_after_punctuation_only')) {
+        if (!CraftyPackage::validatedConfig('arabicable.spacing_after_punctuation_only', ArabicableServiceProvider::class)) {
             $text = Arabic::addSpacesBeforePunctuationMarks($text);
         }
 

@@ -9,4 +9,6 @@ parameters:
     tmpDir: build/phpstan
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '#Call to an undefined method .*#'
+        - message: '#Call to an undefined method .*#'
+          path: src/Concerns/HasArabicableMigrationBlueprintMacros.php
+        - message: '#Match expression does not handle remaining value: .*#'

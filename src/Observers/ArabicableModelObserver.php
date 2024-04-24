@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use VPremiss\Arabicable\Facades\Arabic;
 use VPremiss\Arabicable\Facades\ArabicFilter;
 
-class ModelArabicObserver
+class ArabicableModelObserver
 {
     public function creating($model)
     {

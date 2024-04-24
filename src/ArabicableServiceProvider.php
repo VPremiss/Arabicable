@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\File;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VPremiss\Arabicable\Concerns\HasArabicBlueprintMacros;
-use VPremiss\Arabicable\Concerns\HasInitialValidations;
-use VPremiss\Arabicable\Database\Seeders\CommonArabicTextSeeder;
+use VPremiss\Arabicable\Concerns\HasArabicableMigrationBlueprintMacros;
+use VPremiss\Arabicable\Support\Concerns\HasValidatedConfiguration;
+use VPremiss\Crafty\Utilities\Configurated\Interfaces\Configurated;
 
-class ArabicableServiceProvider extends PackageServiceProvider
+class ArabicableServiceProvider extends PackageServiceProvider implements Configurated
 {
-    use HasArabicBlueprintMacros;
-    use HasInitialValidations;
+    use HasValidatedConfiguration;
+    use HasArabicableMigrationBlueprintMacros;
 
     public function configurePackage(Package $package): void
     {
@@ -34,6 +34,7 @@ class ArabicableServiceProvider extends PackageServiceProvider
                 $command->publishMigrations();
                 $command->askToRunMigrations();
 
+                // ? Seeding common-Arabic-text into database
                 if (!app()->environment('testing')) {
                     // Publish the seeder file
                     $this->publishes([
@@ -79,11 +80,36 @@ class ArabicableServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
-        $this->arabicBlueprintMacros();
+        $this->arabicableMigrationBlueprintMacros();
     }
 
-    public function packageBooted()
+    public function configValidation(string $configKey): void
     {
-        $this->validations();
+        match ($configKey) {
+            'arabicable.property_suffix_keys' => $this->validatePropertySuffixKeysConfig(),
+            'arabicable.spacing_after_punctuation_only' => $this->validateSpacingAfterPunctuationOnlyConfig(),
+            'arabicable.normalized_punctuation_marks' => $this->validateNormalizedPunctuationMarksConfig(),
+            'arabicable.space_preserved_enclosings' => $this->validateSpacePreservedEnclosingsConfig(),
+            'arabicable.common_arabic_text' => $this->validateCommonArabicTextConfig(),
+        };
+    }
+
+    public function configDefault(string $configKey): mixed
+    {
+        return match ($configKey) {
+            'arabicable.property_suffix_keys.numbers_to_indian' => '_indian',
+            'arabicable.property_suffix_keys.text_with_harakat' => '_with_harakat',
+            'arabicable.property_suffix_keys.text_for_search' => '_searchable',
+            'arabicable.spacing_after_punctuation_only' => false,
+            'arabicable.normalized_punctuation_marks' => [
+                '«' => ['<', '<<'],
+                '»' => ['>', '>>'],
+            ],
+            'arabicable.space_preserved_enclosings' => [
+                '{', '}',
+            ],
+            'arabicable.common_arabic_text.model' => \VPremiss\Arabicable\Models\CommonArabicText::class,
+            'arabicable.common_arabic_text.factory' => \VPremiss\Arabicable\Database\Factories\CommonArabicTextFactory::class,
+        };
     }
 }
