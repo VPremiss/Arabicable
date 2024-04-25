@@ -192,7 +192,7 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 
 ### Inspiration
 
-- [LinuxScout](https://github.com/linuxscout)
+- [LinuxScout](https://github.com/linuxscout?tab=repositories)
 - [Quest](https://github.com/caneara/quest) package
 - [AR-PHP](https://github.com/khaled-alshamaa/ar-php) package
 - [AR-PHP-Laravel](https://github.com/still-code/ar-php-laravel) package
