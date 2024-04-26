@@ -11,21 +11,30 @@ trait HasValidatedConfiguration
 {
     protected function validatePropertySuffixKeysConfig()
     {
-        if (empty(CraftyPackage::config('arabicable.property_suffix_keys.numbers_to_indian', $this))) {
+        if (
+            empty($key = CraftyPackage::config('arabicable.property_suffix_keys.numbers_to_indian', $this))
+            || !is_string($key)
+        ) {
             throw new ConfiguratedValidatedConfigurationException(
-                'The configuration suffix key for Indian numerals is empty!'
+                'The configuration suffix key for Indian numerals must be a filled string.'
             );
         }
 
-        if (empty(CraftyPackage::config('arabicable.property_suffix_keys.text_with_harakat', $this))) {
+        if (
+            empty($key = CraftyPackage::config('arabicable.property_suffix_keys.text_with_harakat', $this))
+            || !is_string($key)
+        ) {
             throw new ConfiguratedValidatedConfigurationException(
-                'The configuration suffix key for Arabic with harakat text is empty!'
+                'The configuration suffix key for Arabic with harakat text must be a filled string.'
             );
         }
 
-        if (empty(CraftyPackage::config('arabicable.property_suffix_keys.text_for_search', $this))) {
+        if (
+            empty($key = CraftyPackage::config('arabicable.property_suffix_keys.text_for_search', $this))
+            || !is_string($key)
+        ) {
             throw new ConfiguratedValidatedConfigurationException(
-                'The configuration suffix key for Arabic searchable text is empty!'
+                'The configuration suffix key for Arabic searchable text must be a filled string.'
             );
         }
     }
