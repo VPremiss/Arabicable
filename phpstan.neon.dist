@@ -11,4 +11,5 @@ parameters:
     ignoreErrors:
         - message: '#Call to an undefined method .*#'
           path: src/Concerns/HasArabicableMigrationBlueprintMacros.php
-        - message: '#Match expression does not handle remaining value: .*#'
+        - message: '#Match expression does not handle remaining value: string#'
+          path: src/ArabicableServiceProvider.php
