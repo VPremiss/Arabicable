@@ -169,6 +169,10 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
 You can check out the package's [changelogs](https://app.whatthediff.ai/changelog/github/VPremiss/Arabicable) online via WTD.
 
+### Progress
+
+You can also checkout the project's [roadmap](https://github.com/orgs/VPremiss/projects/5) among others in the organization's dedicated section for [projects](https://github.com/orgs/VPremiss/projects).
+
 
 ## Support
 
