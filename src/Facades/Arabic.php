@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static string removeHarakat(string $text)
  * @method static string normalizeHuroof(string $text)
+ * @method static string|array removeCommons(string|array $words)
  * @method static string convertNumeralsToIndian(string $text)
  * @method static string convertNumeralsToArabicAndIndianSequences(string $text)
  * @method static string deduplicateArabicAndIndianNumeralSequences(string $text)

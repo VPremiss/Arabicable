@@ -3,16 +3,34 @@ name: Run tests via PestPHP
 on:
   push:
     paths:
-      - '**.php'
-      - '.github/workflows/run-tests.yml'
-      - 'phpunit.xml.dist'
-      - 'composer.json'
-      - 'composer.lock'
+      - "**.php"
+      - ".github/workflows/run-tests.yml"
+      - "phpunit.xml.dist"
+      - "composer.json"
+      - "composer.lock"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+
+    env:
+      IN_CI: true # Set an environment variable to help customizing logic for CI
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testdb
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=10s
+          --health-retries=5
+
     strategy:
       fail-fast: true
       matrix:
@@ -35,21 +53,44 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
-          coverage: none
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, mysql, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          coverage: xdebug
 
       - name: Setup problem matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+      - name: Configure MySQL in the environment settings
+        run: |
+          echo "DB_CONNECTION=mysql" >> $GITHUB_ENV
+          echo "DB_DATABASE=testdb" >> $GITHUB_ENV
+          echo "DB_PORT=3306" >> $GITHUB_ENV
+          echo "DB_HOST=127.0.0.1" >> $GITHUB_ENV
+          echo "DB_USERNAME=root" >> $GITHUB_ENV
+          echo "DB_PASSWORD=password" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: List Installed Dependencies
-        run: composer show -D
+      - name: Update Service Providers
+        run: php scripts/ci/update-providers.php
+
+      - name: Setup Workbench
+        run: |
+          composer clear
+          composer prepare
+          composer build
+
+      - name: Run the installation command
+        run: ./vendor/bin/testbench arabicable:install --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest --ci
+        run: vendor/bin/pest --coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

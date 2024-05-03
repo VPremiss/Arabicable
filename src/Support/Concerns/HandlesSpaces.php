@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable\Support\Concerns;
 
-use VPremiss\Arabicable\ArabicableServiceProvider;
 use VPremiss\Arabicable\Support\Exceptions\ArabicableTextValidationException;
 use VPremiss\Crafty\Facades\CraftyPackage;
 
@@ -117,7 +116,7 @@ trait HandlesSpaces
         );
         $exclusions = array_merge(
             $exclusions,
-            CraftyPackage::validatedConfig('arabicable.space_preserved_enclosings', ArabicableServiceProvider::class) ?? [],
+            CraftyPackage::getConfiguration('arabicable.space_preserved_enclosings') ?? [],
         );
         $starterMarks = array_diff(
             array_merge(
@@ -152,7 +151,7 @@ trait HandlesSpaces
 
     public function refineSpacesBetweenPunctuationMarks(string $text): string
     {
-        if (CraftyPackage::validatedConfig('arabicable.spacing_after_punctuation_only', ArabicableServiceProvider::class)) {
+        if (CraftyPackage::getConfiguration('arabicable.spacing_after_punctuation_only')) {
             $enclosings = array_diff(
                 $this->getAllEnclosingMarks(),
                 ["'", '"', '/'],
@@ -173,7 +172,7 @@ trait HandlesSpaces
                     static::ENCLOSING_ENDER_MARKS,
                     static::ARABIC_ENCLOSING_ENDER_MARKS,
                 ),
-                CraftyPackage::validatedConfig('arabicable.space_preserved_enclosings', ArabicableServiceProvider::class),
+                CraftyPackage::getConfiguration('arabicable.space_preserved_enclosings'),
             );
             $enclosingEndMarks = implode('', $enclosings);
             $pattern = '/\s+(?=[' . preg_quote($enclosingEndMarks) . '])/u';

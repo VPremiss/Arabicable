@@ -71,15 +71,18 @@ return [
      |--------------------------------------------------------------------------
      |
      | Point towards the common Arabic text model and factory, which is to be
-     | used for search-filtering purposes.
+     | used for search-filtering purposes. If set to `null`, it we'll fallback
+     | to the package defaults.
      |
-     | If set to `null`, it we'll fallback to the package defaults.
+     | The last is the cache-key used to save CommonArabicText records sorted
+     | result. It is reset in the line step in its seeder.
      |
      */
 
     'common_arabic_text' => [
         'model' => \VPremiss\Arabicable\Models\CommonArabicText::class,
-        'factory' => \VPremiss\Arabicable\Database\Factories\CommonArabicTextFactory::class,
+        'factory' => \Database\Factories\CommonArabicTextFactory::class,
+        'cache_key' => 'common_arabic_texts',
     ],
 
 ];
