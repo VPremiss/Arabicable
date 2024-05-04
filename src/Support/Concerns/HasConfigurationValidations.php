@@ -4,61 +4,55 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable\Support\Concerns;
 
-use VPremiss\Crafty\Facades\CraftyPackage;
 use VPremiss\Crafty\Utilities\Configurated\Exceptions\ConfiguratedValidatedConfigurationException;
 
-trait HasValidatedConfiguration
+trait HasConfigurationValidations
 {
-    protected function validatePropertySuffixKeysConfig()
+    protected function validatePropertySuffixKeysNumbersToIndianConfig($value): void
     {
-        if (
-            empty($key = CraftyPackage::config('arabicable.property_suffix_keys.numbers_to_indian', $this))
-            || !is_string($key)
-        ) {
+        if (empty($value) || !is_string($value)) {
             throw new ConfiguratedValidatedConfigurationException(
                 'The configuration suffix key for Indian numerals must be a filled string.'
             );
         }
+    }
 
-        if (
-            empty($key = CraftyPackage::config('arabicable.property_suffix_keys.text_with_harakat', $this))
-            || !is_string($key)
-        ) {
+    protected function validatePropertySuffixKeysTextWithHarakatConfig($value): void
+    {
+        if (empty($value) || !is_string($value)) {
             throw new ConfiguratedValidatedConfigurationException(
                 'The configuration suffix key for Arabic with harakat text must be a filled string.'
             );
         }
+    }
 
-        if (
-            empty($key = CraftyPackage::config('arabicable.property_suffix_keys.text_for_search', $this))
-            || !is_string($key)
-        ) {
+    protected function validatePropertySuffixKeysTextForSearchConfig($value): void
+    {
+        if (empty($value) || !is_string($value)) {
             throw new ConfiguratedValidatedConfigurationException(
                 'The configuration suffix key for Arabic searchable text must be a filled string.'
             );
         }
     }
 
-    protected function validateSpacingAfterPunctuationOnlyConfig()
+    protected function validateSpacingAfterPunctuationOnlyConfig($value): void
     {
-        if (!is_bool(CraftyPackage::config('arabicable.spacing_after_punctuation_only', $this))) {
+        if (!is_bool($value)) {
             throw new ConfiguratedValidatedConfigurationException(
                 'The boolean configuration for spacing after punctuation only is not found!'
             );
         }
     }
 
-    protected function validateNormalizedPunctuationMarksConfig()
+    protected function validateNormalizedPunctuationMarksConfig($value): void
     {
-        $normalizedPunctuationMarks = CraftyPackage::config('arabicable.normalized_punctuation_marks', $this);
-
-        if (!is_null($normalizedPunctuationMarks) && !is_array($normalizedPunctuationMarks)) {
+        if (!is_null($value) && !is_array($value)) {
             throw new ConfiguratedValidatedConfigurationException(
                 'Normalized punctuation marks (array or null) configuration is not found.'
             );
         }
 
-        foreach ($normalizedPunctuationMarks as $mark => $normalizations) {
+        foreach ($value as $mark => $normalizations) {
             if (!is_string($mark)) {
                 throw new ConfiguratedValidatedConfigurationException(
                     'Normalized punctuation marks array configuration contains a non-string key!'
@@ -81,17 +75,15 @@ trait HasValidatedConfiguration
         }
     }
 
-    protected function validateSpacePreservedEnclosingsConfig()
+    protected function validateSpacePreservedEnclosingsConfig($value): void
     {
-        $spacePreservedEnclosings = CraftyPackage::config('arabicable.space_preserved_enclosings', $this);
-
-        if (!is_null($spacePreservedEnclosings) && !is_array($spacePreservedEnclosings)) {
+        if (!is_null($value) && !is_array($value)) {
             throw new ConfiguratedValidatedConfigurationException(
                 'Space-preserved enclosings (array or null) configuration is not found.'
             );
         }
 
-        foreach ($spacePreservedEnclosings as $enclosing) {
+        foreach ($value as $enclosing) {
             if (!is_string($enclosing)) {
                 throw new ConfiguratedValidatedConfigurationException(
                     'Space-preserved enclosings array configuration contains a non-string value!'
@@ -100,28 +92,42 @@ trait HasValidatedConfiguration
         }
     }
 
-    protected function validateCommonArabicTextConfig()
+    protected function validateCommonArabicTextModelConfig($value): void
     {
-        $array = CraftyPackage::config('arabicable.common_arabic_text', $this);
-
-        if (!is_null($array) && !is_array($array) && !filled($array)) {
+        if (!is_string($value) && empty($value)) {
             throw new ConfiguratedValidatedConfigurationException(
-                'The common Arabic text (filled array or null) configuration is not found.'
+                'The common Arabic text model configuration namespace is either non-string or empty.'
             );
         }
 
-        foreach ($array as $namespace) {
-            if (!is_string($namespace) && empty($namespace)) {
-                throw new ConfiguratedValidatedConfigurationException(
-                    'One of the common Arabic text configuration namespaces is either non-string or empty.'
-                );
-            }
+        if (!class_exists($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The common Arabic text model configuration namespaces is not pointing to an existing class.'
+            );
+        }
+    }
 
-            if (!class_exists($namespace)) {
-                throw new ConfiguratedValidatedConfigurationException(
-                    'One of the common Arabic text configuration namespaces is not pointing to an existing class.'
-                );
-            }
+    protected function validateCommonArabicTextFactoryConfig($value): void
+    {
+        if (!is_string($value) && empty($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The common Arabic text factory configuration namespace is either non-string or empty.'
+            );
+        }
+
+        if (!class_exists($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The common Arabic text factory configuration namespaces is not pointing to an existing class.'
+            );
+        }
+    }
+
+    protected function validateCommonArabicTextCacheKeyConfig($value): void
+    {
+        if (!is_string($value) && empty($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The common Arabic text cache-key configuration is not a filled string.'
+            );
         }
     }
 }

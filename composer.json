@@ -21,7 +21,7 @@
         "illuminate/contracts": "^11.0",
         "laravel/scout": "^10.8",
         "spatie/laravel-package-tools": "^1.16",
-        "vpremiss/crafty": "^3.1.1"
+        "vpremiss/crafty": "^4.4.1"
     },
     "require-dev": {
         "nunomaduro/collision": "^8.1.1",
@@ -40,21 +40,42 @@
         ],
         "psr-4": {
             "VPremiss\\Arabicable\\": "src/",
-            "VPremiss\\Arabicable\\Database\\Factories\\": "database/factories/",
-            "VPremiss\\Arabicable\\Database\\Seeders\\": "database/seeders/"
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VPremiss\\Arabicable\\Tests\\": "tests/"
+            "VPremiss\\Arabicable\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
         }
     },
     "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "testbench": "vendor/bin/testbench",
-        "green": "vendor/bin/phpstan analyse && vendor/bin/pest"
+        "test:coverage": "@test --coverage",
+        "green": [
+            "@analyse",
+            "@test:coverage"
+        ],
+        "bench": "vendor/bin/testbench",
+        "bench:install": "@bench workbench:install",
+        "clear": "@bench package:purge-skeleton --ansi",
+        "prepare": "@bench package:discover --ansi",
+        "build": "@bench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@clear",
+            "@prepare",
+            "@build",
+            "@bench serve"
+        ]
     },
     "config": {
         "sort-packages": true,

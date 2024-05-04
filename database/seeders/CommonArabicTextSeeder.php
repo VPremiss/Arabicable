@@ -2,12 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace VPremiss\Arabicable\Database\Seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 use VPremiss\Arabicable\Facades\ArabicFilter;
 use VPremiss\Crafty\Facades\Crafty;
+use VPremiss\Crafty\Facades\CraftyPackage;
 
 class CommonArabicTextSeeder extends Seeder
 {
@@ -96,6 +98,8 @@ class CommonArabicTextSeeder extends Seeder
             // ['content' => 'المرأة'],
             ['content' => 'امرأة'],
 
+            ['content' => 'شيء'],
+            ['content' => 'شيئا'],
             ['content' => 'أحد'],
             ['content' => 'كل'],
             ['content' => 'كلكم'],
@@ -253,5 +257,7 @@ class CommonArabicTextSeeder extends Seeder
                 return $record;
             },
         );
+
+        Cache::forget(CraftyPackage::getConfiguration('arabicable.common_arabic_text.cache_key'));
     }
 }

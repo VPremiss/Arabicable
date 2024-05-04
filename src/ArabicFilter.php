@@ -18,7 +18,7 @@ class ArabicFilter
         $text = Arabic::convertPunctuationMarksToArabic($text);
         $text = Arabic::removeSpacesAroundPunctuationMarks($text);
 
-        if (!CraftyPackage::validatedConfig('arabicable.spacing_after_punctuation_only', ArabicableServiceProvider::class)) {
+        if (!CraftyPackage::getConfiguration('arabicable.spacing_after_punctuation_only')) {
             $text = Arabic::addSpacesBeforePunctuationMarks($text);
         }
 

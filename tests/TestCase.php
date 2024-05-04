@@ -4,41 +4,56 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orchestra\Testbench\Attributes\WithMigration;
+use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VPremiss\Arabicable\ArabicableServiceProvider;
 use VPremiss\Arabicable\Concerns\HasArabicableMigrationBlueprintMacros;
-use VPremiss\Arabicable\Database\Seeders\CommonArabicTextSeeder;
 
+use function Orchestra\Testbench\workbench_path;
+
+#[WithMigration]
 class TestCase extends Orchestra
 {
+    use WithWorkbench;
+    use RefreshDatabase;
     use HasArabicableMigrationBlueprintMacros;
 
     protected function setUp(): void
     {
         parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VPremiss\\Arabicable\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
-        );
-
-        $this->seed(CommonArabicTextSeeder::class);
     }
 
-    protected function getPackageProviders($app)
+    public function ignorePackageDiscoveriesFrom()
     {
         return [
-            ArabicableServiceProvider::class,
+            'vpremiss/arabicable',
+            'vpremiss/crafty',
         ];
+    }
+
+    protected function getPackageProviders($_)
+    {
+        return [
+            \VPremiss\Crafty\CraftyServiceProvider::class,
+            \VPremiss\Arabicable\ArabicableServiceProvider::class,
+        ];
+    }
+
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadMigrationsFrom(workbench_path('database/migrations'));
     }
 
     public function getEnvironmentSetUp($app)
     {
-        $this->arabicableMigrationBlueprintMacros();
-
         config()->set('database.default', 'testing');
 
-        $migration = include __DIR__ . '/../database/migrations/create_common_arabic_texts_table.php.stub';
-        $migration->up();
+        $this->arabicableMigrationBlueprintMacros();
+
+        if (! env('IN_CI', false)) {
+            $migration = include __DIR__ . '/../database/migrations/create_common_arabic_texts_table.php.stub';
+            $migration->up();
+        }
     }
 }
