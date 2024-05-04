@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\File;
+
 arch('it will not use debugging functions')
     ->expect([
         'dd',
@@ -15,3 +17,9 @@ arch('it will not use debugging functions')
 arch('it uses strict typing everywhere')
     ->expect('VPremiss\\Arabicable')
     ->toUseStrictTypes();
+
+test('it will not point to dependency development versions', function () {
+    expect(File::get(__DIR__ . '/../composer.json'))
+        ->not
+        ->toContain("dev-");
+});

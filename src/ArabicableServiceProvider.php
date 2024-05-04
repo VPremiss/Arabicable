@@ -7,15 +7,17 @@ namespace VPremiss\Arabicable;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use VPremiss\Arabicable\Concerns\HasArabicableMigrationBlueprintMacros;
-use VPremiss\Arabicable\Support\Concerns\HasValidatedConfiguration;
+use VPremiss\Arabicable\Support\Concerns\HasConfigurationValidations;
 use VPremiss\Crafty\Utilities\Configurated\Interfaces\Configurated;
+use VPremiss\Crafty\Utilities\Configurated\Traits\ManagesConfigurations;
 use VPremiss\Crafty\Utilities\Installable\Interfaces\Installable;
 use VPremiss\Crafty\Utilities\Installable\Traits\HasInstallationCommand;
 
 class ArabicableServiceProvider extends PackageServiceProvider implements Installable, Configurated
 {
+    use ManagesConfigurations;
+    use HasConfigurationValidations;
     use HasInstallationCommand;
-    use HasValidatedConfiguration;
     use HasArabicableMigrationBlueprintMacros;
 
     public function configurePackage(Package $package): void
@@ -31,9 +33,15 @@ class ArabicableServiceProvider extends PackageServiceProvider implements Instal
             ->hasMigration('create_common_arabic_texts_table');
     }
 
+    public function packageRegistered()
+    {
+        $this->registerConfigurations();
+    }
+
     public function bootingPackage()
     {
         $this->installationCommand();
+
         $this->arabicableMigrationBlueprintMacros();
     }
 
@@ -44,33 +52,24 @@ class ArabicableServiceProvider extends PackageServiceProvider implements Instal
         ];
     }
 
-    public function configValidation(string $configKey): void
+    public function configurationValidations(): array
     {
-        match ($configKey) {
-            'arabicable.property_suffix_keys' => $this->validatePropertySuffixKeysConfig(),
-            'arabicable.spacing_after_punctuation_only' => $this->validateSpacingAfterPunctuationOnlyConfig(),
-            'arabicable.normalized_punctuation_marks' => $this->validateNormalizedPunctuationMarksConfig(),
-            'arabicable.space_preserved_enclosings' => $this->validateSpacePreservedEnclosingsConfig(),
-            'arabicable.common_arabic_text' => $this->validateCommonArabicTextConfig(),
-        };
-    }
-
-    public function configDefault(string $configKey): mixed
-    {
-        return match ($configKey) {
-            'arabicable.property_suffix_keys.numbers_to_indian' => '_indian',
-            'arabicable.property_suffix_keys.text_with_harakat' => '_with_harakat',
-            'arabicable.property_suffix_keys.text_for_search' => '_searchable',
-            'arabicable.spacing_after_punctuation_only' => false,
-            'arabicable.normalized_punctuation_marks' => [
-                '«' => ['<', '<<'],
-                '»' => ['>', '>>'],
+        return [
+            'arabicable' => [
+                'property_suffix_keys' => [
+                    'numbers_to_indian' => fn ($value) => $this->validatePropertySuffixKeysNumbersToIndianConfig($value),
+                    'text_with_harakat' => fn ($value) => $this->validatePropertySuffixKeysTextWithHarakatConfig($value),
+                    'text_for_search' => fn ($value) => $this->validatePropertySuffixKeysTextForSearchConfig($value),
+                ],
+                'spacing_after_punctuation_only' => fn ($value) => $this->validateSpacingAfterPunctuationOnlyConfig($value),
+                'normalized_punctuation_marks' => fn ($value) => $this->validateNormalizedPunctuationMarksConfig($value),
+                'space_preserved_enclosings' => fn ($value) => $this->validateSpacePreservedEnclosingsConfig($value),
+                'common_arabic_text' => [
+                    'model' => fn ($value) => $this->validateCommonArabicTextModelConfig($value),
+                    'factory' => fn ($value) => $this->validateCommonArabicTextFactoryConfig($value),
+                    'cache_key' => fn ($value) => $this->validateCommonArabicTextCacheKeyConfig($value),
+                ],
             ],
-            'arabicable.space_preserved_enclosings' => [
-                '{', '}',
-            ],
-            'arabicable.common_arabic_text.model' => \VPremiss\Arabicable\Models\CommonArabicText::class,
-            'arabicable.common_arabic_text.factory' => \VPremiss\Arabicable\Database\Factories\CommonArabicTextFactory::class,
-        };
+        ];
     }
 }

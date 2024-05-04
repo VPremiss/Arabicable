@@ -6,54 +6,67 @@
 
 Several effective strategies for managing Arabic text.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge)](https://packagist.org/packages/vpremiss/arabicable)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge&color=gray)](https://packagist.org/packages/vpremiss/arabicable)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/run-tests.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=b07d00)](https://packagist.org/packages/vpremiss/arabicable)
+![Codecov](https://img.shields.io/codecov/c/github/VPremiss/Arabicable?style=for-the-badge&color=purple)
+[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=blue)](https://packagist.org/packages/vpremiss/arabicable)
 
 
 ## Description
 
-The gist of the matter here is to rely on the database to store variances of each Arabic or Indian numeral field. Having their dedicated fields makes indexing and searching efficient; combined with the right choosing from all available migration types based on character capactiy. And while utilizing Laravel's Eloquent [observers](https://laravel.com/docs/eloquent#observers), we can process only what's necessary again during updates.
+The primary approach here is to rely on the database to store variances of each Arabic or Indian numeral column. Having their dedicated columns makes indexing and searching efficient; combined with the appropriate choice among all available migration types based on character capactiy. And while utilizing Laravel's Eloquent [observers](https://laravel.com/docs/eloquent#observers), we can process only what's necessary again during updates.
 
-So based on the model's property length requirement, we've added migration blueprint [macros](src/Concerns/HasArabicableMigrationBlueprintMacros.php) for Arabic string, tinyText, text, mediumText, and longText; plus a date one for Indian numerals. Using those string or text ones would generate 2 extra columns for each arabic column (a [configurable](config/arabicable.php) **affix**, that is). And the indian date one would generate a `column_indian` to hold that in.
+So based on the model's property length requirement, we've added migration blueprint [macros](src/Concerns/HasArabicableMigrationBlueprintMacros.php) for Arabic `string`, `tinyText`, `text`, `mediumText`, and `longText`; plus a `date` one for Indian numerals. Using those `string` or `text`-type ones would generate 2 extra columns for each arabic column (a [configurable](config/arabicable.php) **affix**, that is). And the indian `date` one would generate a `column_indian` to hold that in; where `column` is an example property name.
 
-Finally, take a look at the list of offered methods below (the [API](#API) section) to understand what kind of processing we're doing on the text in order to essentially preserve the `column` (without harakat), the `column_with_harakat`, and the `column_searchable` that's well-prepared exactly for that...
+Finally, take a look at the list of offered methods below (the [API](#API) section) to understand what kind of processing we're doing on the text in order to essentially preserve the `column` (without harakat), the `column_with_harakat`, and the `column_searchable` where each is prepared exactly for that...
 
 
 ## Installation
 
-- Install the package via [composer](https://getcomposer.org):
+1. Install the package via [composer](https://getcomposer.org):
 
-  ```bash
-  composer require vpremiss/arabicable
-  ```
+   ```bash
+   composer require vpremiss/arabicable
+   ```
+
+2. Add these package service providers manually to your [bootstrap/providers.php] file:
+
+   ```php
+   return [
+       App\Providers\AppServiceProvider::class,
+       VPremiss\Crafty\CraftyServiceProvider::class, // this as the first
+       VPremiss\Arabicable\ArabicableServiceProvider::class, // and this as the second
+   ];
+   ```
+
+3. Run the package [Artisan](https://laravel.com/docs/artisan) installer using this command:
+
+   ```bash
+   php artisan arabicable:install
+   ```
 
 >[!NOTE]The config file as well as the migration table will be published automatically.
 
-- Run the package [Artisan](https://laravel.com/docs/artisan) installer using this command:
-
-  ```bash
-  php artisan arabicable:install
-  ```
-
 ### Upgrading
 
-- First, backup your current [config](config/arabicable.php), as well as the common-Arabic-text migration and seeder.
+1. Backup your current [config](config/arabicable.php), as well as the common-Arabic-text migration and seeder.
 
-- Then just ensure that those are re-published using this Artisan command:
+2. Republish the package stuff using these Artisan commands:
 
-  ```bash
-  php artisan vendor:publish --tag="arabicable-config" --force
-  php artisan vendor:publish --tag="arabicable-migrations" --force
-  php artisan vendor:publish --tag="arabicable-seeders" --force
-  ```
+   ```bash
+   php artisan vendor:publish --tag="arabicable-config" --force
+   php artisan vendor:publish --tag="arabicable-migrations" --force
+   php artisan vendor:publish --tag="arabicable-seeders" --force
+   ```
 
 
 ## Usage
 
-Alright, so let's imagine we have Note(s) and we want to have their content arabicable!
+### Arabicable
 
-- First create add an arabicable column to its [migration](https://laravel.com/docs/migrations):
+Alright, so let's imagine we have `Note`(s) and we want to have their `content` arabicable!
+
+- First, create the [migration](https://laravel.com/docs/migrations) and add an arabicable `column` to it:
 
   ```php
   use Illuminate\Database\Schema\Blueprint;
@@ -66,7 +79,7 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
   });
   ```
 
-- Then let's make the model arabicable, activating the observer:
+- Then let's make the model "arabicable", which activates the observer:
 
   ```php
   use Illuminate\Database\Eloquent\Model;
@@ -83,11 +96,11 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 - Finally, the moment we create a new note and passing it some Arabic content (presumably with harakat), it will process its other columns automatically:
 
   ```php
+  // When spacing_after_punctuation_only is set to `false` in configuration (default)
+
   $note = Note::create([
       'content' => '"الجَمَاعَةُ مَا وَافَقَ الحَقّ، أَنْتَ الجَمَاعَةُ وَلَو كُنْتَ وَحْدَكْ."',
   ]);
-
-  // When spacing_after_punctuation_only is set to `false` in configuration (default)
 
   echo $note->content; // "الجماعة ما وافق الحق ، أنت الجماعة ولو كنت وحدك ."
   echo $note->{ar_with_harakat('content')}; // "الجَمَاعَةُ مَا وَافَقَ الحَقّ ، أَنْتَ الجَمَاعَةُ وَلَو كُنْتَ وَحْدَكْ ."
@@ -112,6 +125,14 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 >[!NOTE]<br>Notice how we can use the global helper functions (`ar_with_harakat`, `ar_searchable`, and `ar_indian`) to get the corresponding property name quickly.
 
 > [!IMPORTANT]<br>A validation method is employed during text processing to ensure that the text is free of punctuation anomalies that could impact spacing adjustments.
+
+### Common Arabic Text
+
+You must ensure that the migration, model, factory, and seeder are all set in place in order for this feature to be utilized.
+
+Among many other filtering methods that [`Arabic`](./src/Arabic.php) facade provides, there is a `removeCommons` one. Use it to filter those out to help you search for more focused context.
+
+You can combine that with whole filtered [`ArabicFilter::forSearch`](./src/ArabicFilter.php#40) searches ahead to ensure that you didn't miss the quote itself first, and so on...
 
 
 ## API
@@ -140,28 +161,29 @@ Alright, so let's imagine we have Note(s) and we want to have their content arab
 
   | **ArabicFilter Facade Methods**                | Description                                                                                         |
   |-----------------------|-----------------------------------------------------------------------------------------------------|
-  | `withHarakat`         | Enhances Arabic text by converting numerals to Indian, normalizing spaces, converting punctuation to Arabic, and refining spaces around punctuation marks. Configurable to add spaces before marks based on application settings. |
-  | `withoutHarakat`      | Applies the `withHarakat` enhancements and then removes diacritic marks from the text.               |
-  | `forSearch`           | Prepares text for search by removing diacritics, all punctuation, converting numerals to Arabic and Indian sequences, deduplicating these sequences, normalizing letters, and spaces. |
+  | `withHarakat(string $text): string`         | Enhances Arabic text by converting numerals to Indian, normalizing spaces, converting punctuation to Arabic, and refining spaces around punctuation marks. Configurable to add spaces before marks based on application settings. |
+  | `withoutHarakat(string $text): string`      | Applies the `withHarakat` enhancements and then removes diacritic marks from the text.               |
+  | `forSearch(string $text): string`           | Prepares text for search by removing diacritics, all punctuation, converting numerals to Arabic and Indian sequences, deduplicating these sequences, normalizing letters, and spaces. |
 
   <br>
 
   | **Arabic Facade Methods**                                       | Description                                                                                     |
   |----------------------------------------------|-------------------------------------------------------------------------------------------------|
-  | `removeHarakat`                             | Removes diacritic marks from Arabic text.                                                       |
-  | `normalizeHuroof`                           | Normalizes Arabic letters to a consistent form by standardizing various forms of similar letters.|
-  | `convertNumeralsToIndian`                   | Converts Arabic numerals to their Indian numeral equivalents.                                   |
-  | `convertNumeralsToArabicAndIndianSequences` | Converts sequences of numerals in text to both Arabic and Indian numerals, presenting both versions side by side. |
-  | `deduplicateArabicAndIndianNumeralSequences`| Removes duplicate numeral sequences, keeping unique ones at the end of the text.                |
-  | `convertPunctuationMarksToArabic`       | Converts common foreign punctuation marks to their Arabic equivalents.                          |
-  | `validateForTextSpacing`             | Validate whether the text is suitable for spacing.                                                    |
-  | `normalizeSpaces`             | Gets read of all the extra spacing (consecutives) in between or around the text.                                                    |
-  | `removeAllPunctuationMarks`             | Removes all punctuation marks from the text.                                                    |
-  | `addSpacesBeforePunctuationMarks`       | Adds spaces before punctuation marks unless the mark is preceded by another mark or whitespace. |
-  | `addSpacesAfterPunctuationMarks`        | Adds spaces after punctuation marks unless the mark is followed by another mark.                |
-  | `removeSpacesAroundPunctuationMarks`    | Removes spaces around punctuation marks.                                                        |
-  | `removeSpacesWithinEnclosingMarks`      | Removes spaces immediately inside enclosing marks.                                              |
-  | `refineSpacesBetweenPunctuationMarks`   | Refines spacing around punctuation marks based on configurations and special rules.             |
+  | `removeHarakat(string $text): string`                             | Removes diacritic marks from Arabic text.                                                       |
+  | `normalizeHuroof(string $text): string`                           | Normalizes Arabic letters to a consistent form by standardizing various forms of similar letters.|
+  | `removeCommons(string&#124;array $words): string&#124;array`                           | Removes common Arabic phrases and unnecessary single characters. It works with both strings and arrays, returning the cleaned text in the same format as the input.|
+  | `convertNumeralsToIndian(string $text): string`                   | Converts Arabic numerals to their Indian numeral equivalents.                                   |
+  | `convertNumeralsToArabicAndIndianSequences(string $text): string` | Converts sequences of numerals in text to both Arabic and Indian numerals, presenting both versions side by side. |
+  | `deduplicateArabicAndIndianNumeralSequences(string $text): string`| Removes duplicate numeral sequences, keeping unique ones at the end of the text.                |
+  | `convertPunctuationMarksToArabic(string $text): string`       | Converts common foreign punctuation marks to their Arabic equivalents.                          |
+  | `removeAllPunctuationMarks(string $text): string`             | Removes all and every punctuation mark there is; including enclosings and everything.                                                    |
+  | `validateForTextSpacing(string $text): void`             | Prepares the text for proper spacing by ensuring there is no inconsistency when it comes to the couples of enclosing marks and so on...                                                    |
+  | `normalizeSpaces(string $text): string`             | Gets read of all the extra spacing (consecutives) in between or around the text.                                                    |
+  | `addSpacesBeforePunctuationMarks(string $text, array $inclusions = [], array $exclusions = []): string`       | Adds spaces before punctuation marks unless the mark is preceded by another mark or whitespace. |
+  | `addSpacesAfterPunctuationMarks(string $text, array $inclusions = [], array $exclusions = []): string`        | Adds spaces after punctuation marks unless the mark is followed by another mark.                |
+  | `removeSpacesAroundPunctuationMarks(string $text, array $inclusions = [], array $exclusions = []): string`    | Removes spaces around punctuation marks.                                                        |
+  | `removeSpacesWithinEnclosingMarks(string $text, array $exclusions = []): string`      | Removes spaces immediately inside enclosing marks.                                              |
+  | `refineSpacesBetweenPunctuationMarks(string $text): string`   | Refines spacing around punctuation marks based on configurations and special rules.             |
 
   <br>
 
@@ -187,11 +209,12 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 ### Credits
 
 - [ChatGPT](https://chat.openai.com)
+- [Graphite](https://graphite.dev)
 - [Laravel](https://github.com/Laravel)
 - [Spatie](https://github.com/spatie)
-- [Graphite](https://graphite.dev)
-- [WTD](https://whatthediff.ai)
-- [All Contributors](../../contributors)
+- [BeyondCode](https://beyondco.de)
+- [The Contributors](../../contributors)
+- All the [backend packages](/composer.json#20) and services this package relies on...
 - And the generous individuals that we've learned from and been supported by throughout our journey...
 
 ### Inspiration

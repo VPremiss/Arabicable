@@ -1,0 +1,4 @@
+workbench:
+  install: true
+  discovers:
+    config: true

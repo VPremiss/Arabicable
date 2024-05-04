@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use VPremiss\Arabicable\ArabicableServiceProvider;
 use VPremiss\Arabicable\Support\Exceptions\ArabicableFunctionDoesNotExistException;
 use VPremiss\Crafty\Facades\CraftyPackage;
 
@@ -11,10 +10,7 @@ if (function_exists('ar_indian')) {
 } else {
     function ar_indian(string $property): string
     {
-        return $property . CraftyPackage::validatedConfig(
-            'arabicable.property_suffix_keys.numbers_to_indian',
-            ArabicableServiceProvider::class,
-        );
+        return $property . CraftyPackage::getConfiguration('arabicable.property_suffix_keys.numbers_to_indian');
     }
 }
 
@@ -23,10 +19,7 @@ if (function_exists('ar_with_harakat')) {
 } else {
     function ar_with_harakat(string $property): string
     {
-        return $property . CraftyPackage::validatedConfig(
-            'arabicable.property_suffix_keys.text_with_harakat',
-            ArabicableServiceProvider::class,
-        );
+        return $property . CraftyPackage::getConfiguration('arabicable.property_suffix_keys.text_with_harakat');
     }
 }
 
@@ -35,9 +28,6 @@ if (function_exists('ar_searchable')) {
 } else {
     function ar_searchable(string $property): string
     {
-        return $property . CraftyPackage::validatedConfig(
-            'arabicable.property_suffix_keys.text_for_search',
-            ArabicableServiceProvider::class,
-        );
+        return $property . CraftyPackage::getConfiguration('arabicable.property_suffix_keys.text_for_search');
     }
 }
