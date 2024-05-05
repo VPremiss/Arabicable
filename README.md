@@ -7,7 +7,7 @@
 Several effective strategies for managing Arabic text.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge&color=gray)](https://packagist.org/packages/vpremiss/arabicable)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/run-tests.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/pestphp-testing.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
 ![Codecov](https://img.shields.io/codecov/c/github/VPremiss/Arabicable?style=for-the-badge&color=purple)
 [![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=blue)](https://packagist.org/packages/vpremiss/arabicable)
 
@@ -214,7 +214,7 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 - [Spatie](https://github.com/spatie)
 - [BeyondCode](https://beyondco.de)
 - [The Contributors](../../contributors)
-- All the [backend packages](/composer.json#20) and services this package relies on...
+- All the [backend packages](./composer.json#19) and services this package relies on...
 - And the generous individuals that we've learned from and been supported by throughout our journey...
 
 ### Inspiration
