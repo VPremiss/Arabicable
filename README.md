@@ -7,7 +7,7 @@
 Several effective strategies for managing Arabic text.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge&color=gray)](https://packagist.org/packages/vpremiss/arabicable)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/pestphp-testing.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/arabicable/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/pestphp-testing.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/VPremiss/Arabicable/actions/workflows/pestphp-testing.yml?query=branch%3Amain++)
 ![Codecov](https://img.shields.io/codecov/c/github/VPremiss/Arabicable?style=for-the-badge&color=purple)
 [![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=blue)](https://packagist.org/packages/vpremiss/arabicable)
 
