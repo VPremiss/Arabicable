@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Database\Seeders\CommonArabicTextSeeder;
+use VPremiss\Arabicable\Database\Seeders\CommonArabicTextSeeder;
 use VPremiss\Arabicable\Models\CommonArabicText;
 
 use function Pest\Laravel\seed;

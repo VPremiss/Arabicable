@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Attributes\SearchUsingFullText;
 use Laravel\Scout\Searchable;
+use VPremiss\Arabicable\Enums\CommonArabicTextType;
 use VPremiss\Crafty\Facades\CraftyPackage;
 
 /** 
@@ -21,7 +22,17 @@ class CommonArabicText extends Model
     use HasFactory, Searchable;
     use Arabicable;
 
-    protected $fillable = ['content'];
+    protected $fillable = [
+        'type',
+        'content',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'type' => CommonArabicTextType::class,
+        ];
+    }
 
     protected static function newFactory()
     {
