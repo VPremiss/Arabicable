@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('common_arabic_texts', function (Blueprint $table) {
             $table->id();
 
+            $table->string('type', 30);
+
             $table->arabicString('content', length: 40, isUnique: true, supportsFullSearch: true);
 
             $table->timestamps();

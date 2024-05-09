@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories;
+namespace VPremiss\Arabicable\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use VPremiss\Crafty\Facades\CraftyPackage;
