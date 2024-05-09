@@ -81,7 +81,7 @@ return [
 
     'common_arabic_text' => [
         'model' => \VPremiss\Arabicable\Models\CommonArabicText::class,
-        'factory' => \Database\Factories\CommonArabicTextFactory::class,
+        'factory' => \VPremiss\Arabicable\Database\Factories\CommonArabicTextFactory::class,
         'cache_key' => 'common_arabic_texts',
     ],
 

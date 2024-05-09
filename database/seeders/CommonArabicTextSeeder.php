@@ -1,12 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Database\Seeders;
+namespace VPremiss\Arabicable\Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
+use VPremiss\Arabicable\Enums\CommonArabicTextType;
 use VPremiss\Arabicable\Facades\ArabicFilter;
 use VPremiss\Crafty\Facades\Crafty;
 use VPremiss\Crafty\Facades\CraftyPackage;
@@ -29,219 +30,246 @@ class CommonArabicTextSeeder extends Seeder
         // ? =========================================
 
         $commonArabicText = [
-            ['content' => 'صلى الله عليه وسلم'],
-            ['content' => 'محمد صلى الله عليه وسلم'],
-            ['content' => 'النبي صلى الله عليه وسلم'],
-            ['content' => 'الرسول صلى الله عليه وسلم'],
-            ['content' => 'رسول الله صلى الله عليه وسلم'],
-            ['content' => 'نبي الله صلى الله عليه وسلم'],
 
-            // ['content' => 'سبحان الله'],
-            // ['content' => 'لا إله إلا الله'],
-            ['content' => 'رسول الله'],
-            ['content' => 'نبي الله'],
+            // * ===========
+            // * Separators
+            // * =========
 
-            ['content' => 'أن'],
-            ['content' => 'إن'],
-            ['content' => 'إني'],
-            ['content' => 'وإن'],
-            ['content' => 'فإن'],
-            ['content' => 'فإنك'],
-            ['content' => 'أنه'],
-            ['content' => 'أنها'],
-            ['content' => 'كأن'],
-            ['content' => 'وكأن'],
-            ['content' => 'كأنه'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'أن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'إن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'إني'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وإن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فإن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فإنك'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'أنه'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'أنها'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كأن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وكأن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كأنه'],
 
-            ['content' => 'ما'],
-            ['content' => 'وما'],
-            ['content' => 'لا'],
-            ['content' => 'ولا'],
-            ['content' => 'فلا'],
-            ['content' => 'قال لا'],
-            ['content' => 'قالت لا'],
-            ['content' => 'قال نعم'],
-            ['content' => 'نعم'],
-            ['content' => 'ليس'],
-            ['content' => 'ليست'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ما'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وما'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'لا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ولا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فلا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'نعم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ليس'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ليست'],
 
-            ['content' => 'إذا'],
-            ['content' => 'فإذا'],
-            ['content' => 'لما'],
-            ['content' => 'فلما'],
-            ['content' => 'ثم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'إذا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فإذا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'لما'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فلما'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ثم'],
 
-            ['content' => 'غير'],
-            ['content' => 'سوى'],
-            ['content' => 'إلا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'غير'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'سوى'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'إلا'],
 
-            ['content' => 'نحن'],
-            ['content' => 'أنا'],
-            ['content' => 'وأنا'],
-            ['content' => 'أنت'],
-            ['content' => 'هو'],
-            ['content' => 'وهو'],
-            ['content' => 'هي'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'نحن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'أنا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وأنا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'أنت'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'هو'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وهو'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'هي'],
 
-            ['content' => 'ذا'],
-            ['content' => 'هذا'],
-            ['content' => 'هذه'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ذا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'هذا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'هذه'],
 
-            // ['content' => 'الناس'],
-            // ['content' => 'الإنس'],
-            // ['content' => 'الجن'],
-            // ['content' => 'الرجال'],
-            // ['content' => 'الرجل'],
-            ['content' => 'رجل'],
-            // ['content' => 'المرء'],
-            // ['content' => 'النساء'],
-            // ['content' => 'المرأة'],
-            ['content' => 'امرأة'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'لم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ولم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فلم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فإن لم'],
 
-            ['content' => 'شيء'],
-            ['content' => 'شيئا'],
-            ['content' => 'أحد'],
-            ['content' => 'كل'],
-            ['content' => 'كلكم'],
-            ['content' => 'كلهم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'قد'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وقد'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فقد'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'لقد'],
 
-            ['content' => 'بن'],
-            ['content' => 'بنت'],
-            ['content' => 'ابن'],
-            ['content' => 'ابنة'],
-            ['content' => 'أخي'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كلما'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'حين'],
 
-            ['content' => 'لم'],
-            ['content' => 'ولم'],
-            ['content' => 'فلم'],
-            ['content' => 'فإن لم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'حيث'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عند'],
 
-            ['content' => 'قد'],
-            ['content' => 'وقد'],
-            ['content' => 'فقد'],
-            ['content' => 'لقد'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كان'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كانت'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كنت'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كنا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كانوا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وكان'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كان لا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'وكان لا'],
 
-            ['content' => 'كلما'],
-            ['content' => 'حين'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'من'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'منه'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'منهم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ومن'],
 
-            ['content' => 'حيث'],
-            ['content' => 'عند'],
-            // ['content' => 'عند الله'],
-            // ['content' => 'عند النبي صلى الله عليه وسلم'],
-            // ['content' => 'عند رسول الله صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'إلى'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'إليك'],
 
-            ['content' => 'كان'],
-            ['content' => 'كانت'],
-            ['content' => 'كنت'],
-            ['content' => 'كنا'],
-            ['content' => 'كانوا'],
-            ['content' => 'وكان'],
-            ['content' => 'كان لا'],
-            ['content' => 'وكان لا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'لك'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'لكم'],
 
-            ['content' => 'من'],
-            ['content' => 'منه'],
-            ['content' => 'منهم'],
-            ['content' => 'ومن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'يا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ألا'],
 
-            ['content' => 'إلى'],
-            ['content' => 'إليك'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'مثل'],
+            // ['type' => CommonArabicTextType::Separator, 'content' => 'ومثل'],
+            // ['type' => CommonArabicTextType::Separator, 'content' => 'كمثل'],
 
-            ['content' => 'لك'],
-            ['content' => 'لكم'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'به'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'بها'],
 
-            ['content' => 'يا'],
-            ['content' => 'ألا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عن'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عنه'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عنها'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عنك'],
 
-            ['content' => 'مثل'],
-            // ['content' => 'ومثل'],
-            // ['content' => 'كمثل'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'ذلك'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عن ذلك'],
 
-            // ['content' => 'يا رسول الله'],
-            // ['content' => 'يا نبي الله'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'في'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فيك'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'فيهم'],
 
-            ['content' => 'عن'],
-            ['content' => 'عنه'],
-            ['content' => 'عنها'],
-            ['content' => 'عنك'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'على'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عليه'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عليها'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عليهما'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'عليهم'],
 
-            ['content' => 'ذلك'],
-            ['content' => 'عن ذلك'],
+            // * ======
+            // * Verbs
+            // * ====
 
-            ['content' => 'في'],
-            // ['content' => 'في المسجد'],
-            ['content' => 'فيك'],
-            ['content' => 'فيهم'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'قال'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'فقال'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'يقول'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'قالت'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'قلت'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'فقلت'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'قيل'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'قالوا'],
 
-            ['content' => 'به'],
-            ['content' => 'بها'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'سمع'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'سمعت'],
 
-            ['content' => 'قال'],
-            ['content' => 'فقال'],
-            ['content' => 'يقول'],
-            ['content' => 'قالت'],
-            ['content' => 'قلت'],
-            ['content' => 'فقلت'],
-            ['content' => 'قيل'],
-            ['content' => 'قالوا'],
-            ['content' => 'رسول الله صلى الله عليه وسلم قال'],
-            ['content' => 'أن رسول الله صلى الله عليه وسلم قال'],
-            ['content' => 'قال رسول الله صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'فعل'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'فعلت'],
 
-            ['content' => 'سمعت الرسول صلى الله عليه وسلم يقول'],
-            ['content' => 'سمعت رسول صلى الله عليه وسلم يقول'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'قام'],
 
-            ['content' => 'سمع'],
-            ['content' => 'سمعت'],
-            ['content' => 'سمعت النبي صلى الله عليه وسلم'],
-            ['content' => 'سمعت الرسول صلى الله عليه وسلم'],
-            ['content' => 'سمعت رسول صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'دخل'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'دخلت'],
 
-            ['content' => 'فعل'],
-            ['content' => 'فعلت'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'أقبل'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'أتى'],
 
-            ['content' => 'قام'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'رأى'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'رأيت'],
 
-            ['content' => 'دخل'],
-            ['content' => 'دخلت'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'جعل'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'جعلت'],
 
-            ['content' => 'أقبل'],
-            ['content' => 'أتى'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'وجد'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'فوجد'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'وجدت'],
 
-            ['content' => 'رأى'],
-            ['content' => 'رأيت'],
+            ['type' => CommonArabicTextType::Verb, 'content' => 'أصبح'],
 
-            ['content' => 'جعل'],
-            ['content' => 'جعلت'],
+            // ['type' => CommonArabicTextType::Verb, 'content' => 'علم'],
+            // ['type' => CommonArabicTextType::Verb, 'content' => 'أعلم'],
 
-            ['content' => 'وجد'],
-            ['content' => 'فوجد'],
-            ['content' => 'وجدت'],
+            // * ======
+            // * Nouns
+            // * ====
 
-            ['content' => 'أصبح'],
-            ['content' => 'فلما أصبح'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'الناس'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'الإنس'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'الجن'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'الرجال'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'الرجل'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'رجل'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'المرء'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'النساء'],
+            // ['type' => CommonArabicTextType::Noun, 'content' => 'المرأة'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'امرأة'],
 
-            // ['content' => 'علم'],
-            // ['content' => 'أعلم'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'شيء'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'شيئا'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'أحد'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'كل'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'كلكم'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'كلهم'],
 
-            ['content' => 'على'],
-            ['content' => 'عليه'],
-            ['content' => 'عليها'],
-            ['content' => 'عليهما'],
-            ['content' => 'عليهم'],
-            ['content' => 'عليه السلام'],
-            ['content' => 'عليه الصلاة والسلام'],
-            ['content' => 'عليهما السلام'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'بن'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'بنت'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'ابن'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'ابنة'],
+            ['type' => CommonArabicTextType::Noun, 'content' => 'أخي'],
 
-            ['content' => 'الله'],
-            // ['content' => 'جبريل'],
-            // ['content' => 'محمد'],
-            ['content' => 'عبد الله'],
-            ['content' => 'بكر'],
-            ['content' => 'عمر'],
-            // ['content' => 'عثمان'],
-            ['content' => 'علي'],
-            // ['content' => 'عائشة'],
+            // * ======
+            // * Names
+            // * ====
+
+            ['type' => CommonArabicTextType::Name, 'content' => 'الله'],
+            // ['type' => CommonArabicTextType::Name, 'content' => 'جبريل'],
+            // ['type' => CommonArabicTextType::Name, 'content' => 'محمد'],
+            ['type' => CommonArabicTextType::Name, 'content' => 'عبد الله'],
+            ['type' => CommonArabicTextType::Name, 'content' => 'بكر'],
+            ['type' => CommonArabicTextType::Name, 'content' => 'عمر'],
+            // ['type' => CommonArabicTextType::Name, 'content' => 'عثمان'],
+            ['type' => CommonArabicTextType::Name, 'content' => 'علي'],
+            // ['type' => CommonArabicTextType::Name, 'content' => 'عائشة'],
+
+            // * ==========
+            // * Sentences
+            // * ========
+
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'محمد صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'النبي صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'الرسول صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'رسول الله صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'نبي الله صلى الله عليه وسلم'],
+
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'عليه السلام'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'عليه الصلاة والسلام'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'عليهما السلام'],
+
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'سبحان الله'],
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'لا إله إلا الله'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'رسول الله'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'نبي الله'],
+
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'قال لا'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'قالت لا'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'قال نعم'],
+
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'عند الله'],
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'عند النبي صلى الله عليه وسلم'],
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'عند رسول الله صلى الله عليه وسلم'],
+
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'يا رسول الله'],
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'يا نبي الله'],
+
+            // ['type' => CommonArabicTextType::Sentence, 'content' => 'في المسجد'],
+
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'رسول الله صلى الله عليه وسلم قال'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'أن رسول الله صلى الله عليه وسلم قال'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'قال رسول الله صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'سمعت الرسول صلى الله عليه وسلم يقول'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'سمعت رسول صلى الله عليه وسلم يقول'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'سمعت النبي صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'سمعت الرسول صلى الله عليه وسلم'],
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'سمعت رسول صلى الله عليه وسلم'],
+
+            ['type' => CommonArabicTextType::Sentence, 'content' => 'فلما أصبح'],
+
         ];
 
         Crafty::chunkedDatabaseInsertion(
