@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-use VPremiss\Arabicable\Database\Seeders\CommonArabicTextSeeder;
+use VPremiss\Arabicable\ArabicableServiceProvider;
 use VPremiss\Arabicable\Facades\Arabic;
-
-use function Pest\Laravel\seed;
+use VPremiss\Arabicable\Models\ArabicPlural;
+use VPremiss\Arabicable\Models\CommonArabicText;
+use VPremiss\Crafty\Facades\CraftyPackage;
 
 it('can filter out common Arabic text', function () {
-    seed(CommonArabicTextSeeder::class);
+    CraftyPackage::seed(ArabicableServiceProvider::class, 'CommonArabicTextSeeder');
+
+    expect(CommonArabicText::count())->toBeGreaterThan(0);
 
     $words = [
         "ومن",
@@ -42,4 +45,38 @@ it('can filter out common Arabic text', function () {
     $filteredWords = Arabic::removeCommons($words);
 
     expect($filteredWords)->toEqualCanonicalizing($expectation);
+});
+
+it('can extract Arabic plurals from singulars and vice-versa', function () {
+    CraftyPackage::seed(ArabicableServiceProvider::class, 'ArabicPluralSeeder');
+
+    expect(ArabicPlural::count())->toBeGreaterThan(0);
+
+    $singulars = [
+        'يمين',
+        'أثر',
+    ];
+    $plurals = [
+        'أيمن',
+        'أيمان',
+        'آثار',
+    ];
+
+    $foundPlurals = Arabic::getPlurals($singulars);
+
+    expect($plurals)->toEqualCanonicalizing($foundPlurals);
+
+    $plurals = [
+        'أيمن',
+        'أيمان',
+        'آثار',
+    ];
+    $singulars = [
+        'يمين',
+        'أثر',
+    ];
+
+    $foundSingulars = Arabic::getSingulars($plurals);
+
+    expect($singulars)->toEqualCanonicalizing($foundSingulars);
 });

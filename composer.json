@@ -21,7 +21,7 @@
         "illuminate/contracts": "^11.0",
         "laravel/scout": "^10.8",
         "spatie/laravel-package-tools": "^1.16",
-        "vpremiss/crafty": "^4.4.9"
+        "vpremiss/crafty": "^4.8"
     },
     "require-dev": {
         "nunomaduro/collision": "^8.1.1",
@@ -54,26 +54,34 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "@clear",
             "@prepare"
         ],
+        "package:install": "@bench arabicable:install --enforced",
         "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test:coverage": "@test --coverage",
+        "pest": "vendor/bin/pest",
+        "pest:coverage": "@pest --coverage",
+        "test": [
+            "@prepare",
+            "@pest:coverage"
+        ],
         "green": [
             "@analyse",
-            "@test:coverage"
+            "@test"
         ],
         "bench": "vendor/bin/testbench",
         "bench:install": "@bench workbench:install",
-        "clear": "@bench package:purge-skeleton --ansi",
-        "prepare": "@bench package:discover --ansi",
+        "clean": "@bench package:purge-skeleton --ansi",
+        "clear": "@bench package:discover --ansi",
         "build": "@bench workbench:build --ansi",
+        "prepare": [
+            "@clean",
+            "@clear",
+            "@package:install --testing",
+            "@build"
+        ],
         "serve": [
             "Composer\\Config::disableProcessTimeout",
-            "@clear",
             "@prepare",
-            "@build",
             "@bench serve"
         ]
     },

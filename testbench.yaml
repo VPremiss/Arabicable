@@ -1,4 +1,17 @@
+laravel: ./workbench
+
+dont-discover: 
+  - vpremiss/arabicable
+  - vpremiss/crafty
+
+providers:
+  - VPremiss\Crafty\CraftyServiceProvider
+  - VPremiss\Arabicable\ArabicableServiceProvider
+
 workbench:
   install: true
+  build:
+    - vendor:publish --all
+    - migrate:fresh
   discovers:
     config: true
