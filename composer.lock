@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc1614f53351bbf2d2c1beb2a3e3479b",
+    "content-hash": "1aa69ca2b05f67f5271017ded1de9600",
     "packages": [
         {
             "name": "brick/math",
@@ -5571,16 +5571,16 @@
         },
         {
             "name": "vpremiss/crafty",
-            "version": "v4.9.5",
+            "version": "v4.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/VPremiss/Crafty.git",
-                "reference": "58a1ffd313bded65f8fa5e998dcce9e8130560f2"
+                "reference": "e6a3cd99191e0bb1242e6e1e8d3ba27264065c85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VPremiss/Crafty/zipball/58a1ffd313bded65f8fa5e998dcce9e8130560f2",
-                "reference": "58a1ffd313bded65f8fa5e998dcce9e8130560f2",
+                "url": "https://api.github.com/repos/VPremiss/Crafty/zipball/e6a3cd99191e0bb1242e6e1e8d3ba27264065c85",
+                "reference": "e6a3cd99191e0bb1242e6e1e8d3ba27264065c85",
                 "shasum": ""
             },
             "require": {
@@ -5641,7 +5641,7 @@
             ],
             "support": {
                 "issues": "https://github.com/VPremiss/Crafty/issues",
-                "source": "https://github.com/VPremiss/Crafty/tree/v4.9.5"
+                "source": "https://github.com/VPremiss/Crafty/tree/v4.9.6"
             },
             "funding": [
                 {
@@ -5649,7 +5649,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-21T11:52:33+00:00"
+            "time": "2024-05-21T15:33:02+00:00"
         },
         {
             "name": "webmozart/assert",
