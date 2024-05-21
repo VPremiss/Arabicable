@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('common_arabic_texts', function (Blueprint $table) {
+        Schema::create('arabic_plurals', function (Blueprint $table) {
             $table->id();
 
-            $table->string('type', 30);
+            $table->arabicString('singular', length: 20);
 
-            $table->arabicString('content', length: 40, isUnique: true);
+            $table->arabicString('plural', length: 25);
+
+            $table->unique(['singular', 'plural']);
 
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('common_arabic_texts');
+        Schema::dropIfExists('arabic_plurals');
     }
 };

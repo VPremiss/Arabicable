@@ -10,6 +10,7 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies"
+    open-pull-requests-limit: 5
 
   - package-ecosystem: "composer"
     directory: "/"
@@ -17,3 +18,4 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies"
+    open-pull-requests-limit: 5
