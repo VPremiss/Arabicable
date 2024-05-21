@@ -30,7 +30,10 @@ class ArabicableServiceProvider extends PackageServiceProvider implements Instal
         $package
             ->name('arabicable')
             ->hasConfigFile()
-            ->hasMigration('create_common_arabic_texts_table');
+            ->hasMigrations([
+                'create_common_arabic_texts_table',
+                'create_arabic_plurals_table',
+            ]);
     }
 
     public function packageRegistered()
@@ -49,6 +52,7 @@ class ArabicableServiceProvider extends PackageServiceProvider implements Instal
     {
         return [
             __DIR__ . '/../database/seeders/CommonArabicTextSeeder.php',
+            __DIR__ . '/../database/seeders/ArabicPluralSeeder.php',
         ];
     }
 
@@ -68,6 +72,11 @@ class ArabicableServiceProvider extends PackageServiceProvider implements Instal
                     'model' => fn ($value) => $this->validateCommonArabicTextModelConfig($value),
                     'factory' => fn ($value) => $this->validateCommonArabicTextFactoryConfig($value),
                     'cache_key' => fn ($value) => $this->validateCommonArabicTextCacheKeyConfig($value),
+                ],
+                'arabic_plural' => [
+                    'model' => fn ($value) => $this->validateArabicPluralModelConfig($value),
+                    'factory' => fn ($value) => $this->validateArabicPluralFactoryConfig($value),
+                    'cache_key' => fn ($value) => $this->validateArabicPluralCacheKeyConfig($value),
                 ],
             ],
         ];

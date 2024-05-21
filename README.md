@@ -171,7 +171,10 @@ You can combine that with whole filtered [`ArabicFilter::forSearch`](./src/Arabi
   |----------------------------------------------|-------------------------------------------------------------------------------------------------|
   | `removeHarakat(string $text): string`                             | Removes diacritic marks from Arabic text.                                                       |
   | `normalizeHuroof(string $text): string`                           | Normalizes Arabic letters to a consistent form by standardizing various forms of similar letters.|
-  | `removeCommons(string&#124;array $words): string&#124;array`                           | Removes common Arabic phrases and unnecessary single characters. It works with both strings and arrays, returning the cleaned text in the same format as the input.|
+  | `getSingulars(string\|array $plurals, bool $uniqueFiltered = true): array`                           | Returns the singular Arabic words corresponding to the singular Arabic plural words passed in. It also **caches** the Arabic plural words during the process.|
+  | `getPlurals(string\|array $singulars, bool $uniqueFiltered = true): array`                           | Returns the plural Arabic words corresponding to the singular Arabic singular words passed in. It also **caches** the Arabic plural words during the process.|
+  | `removeCommons(string\|array $words, array $excludedTypes = [], bool $asString = false): string\|array`                           | Removes common Arabic phrases and unnecessary single characters. It works with a sentence string and an array of words, and it also **caches** all the common Arabic text during the process.|
+  | `clearConceptCache(ArabicLinguisticConcept $concept): void`                           | Clears the linguistic concept's cache so that the records will be re-evaluated during the next concept related calls. This is useful when their seeders get updated with new records.|
   | `convertNumeralsToIndian(string $text): string`                   | Converts Arabic numerals to their Indian numeral equivalents.                                   |
   | `convertNumeralsToArabicAndIndianSequences(string $text): string` | Converts sequences of numerals in text to both Arabic and Indian numerals, presenting both versions side by side. |
   | `deduplicateArabicAndIndianNumeralSequences(string $text): string`| Removes duplicate numeral sequences, keeping unique ones at the end of the text.                |
@@ -186,6 +189,10 @@ You can combine that with whole filtered [`ArabicFilter::forSearch`](./src/Arabi
   | `refineSpacesBetweenPunctuationMarks(string $text): string`   | Refines spacing around punctuation marks based on configurations and special rules.             |
 
   <br>
+
+### Package Development
+
+- Change the `localTimezone` to yours in the [`TestCase`] file.
 
 ### Changelogs
 
@@ -220,6 +227,7 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 ### Inspiration
 
 - [LinuxScout](https://github.com/linuxscout?tab=repositories)
+- `emohamed@umail.iu.edu` for the original plurals list
 - [Quest](https://github.com/caneara/quest) package
 - [AR-PHP](https://github.com/khaled-alshamaa/ar-php) package
 - [AR-PHP-Laravel](https://github.com/still-code/ar-php-laravel) package

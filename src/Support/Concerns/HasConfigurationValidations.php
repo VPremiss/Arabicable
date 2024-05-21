@@ -130,4 +130,43 @@ trait HasConfigurationValidations
             );
         }
     }
+
+    protected function validateArabicPluralModelConfig($value): void
+    {
+        if (!is_string($value) && empty($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The Arabic plural model configuration namespace is either non-string or empty.'
+            );
+        }
+
+        if (!class_exists($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The Arabic plural model configuration namespaces is not pointing to an existing class.'
+            );
+        }
+    }
+
+    protected function validateArabicPluralFactoryConfig($value): void
+    {
+        if (!is_string($value) && empty($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The Arabic plural factory configuration namespace is either non-string or empty.'
+            );
+        }
+
+        if (!class_exists($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The Arabic plural factory configuration namespaces is not pointing to an existing class.'
+            );
+        }
+    }
+
+    protected function validateArabicPluralCacheKeyConfig($value): void
+    {
+        if (!is_string($value) && empty($value)) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The Arabic plural cache-key configuration is not a filled string.'
+            );
+        }
+    }
 }

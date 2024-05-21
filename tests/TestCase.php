@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace VPremiss\Arabicable\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Orchestra\Testbench\Attributes\WithMigration;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
 use VPremiss\Arabicable\Concerns\HasArabicableMigrationBlueprintMacros;
 
-use function Orchestra\Testbench\workbench_path;
-
-#[WithMigration]
 class TestCase extends Orchestra
 {
     use WithWorkbench;
@@ -24,36 +20,24 @@ class TestCase extends Orchestra
         parent::setUp();
     }
 
-    public function ignorePackageDiscoveriesFrom()
-    {
-        return [
-            'vpremiss/arabicable',
-            'vpremiss/crafty',
-        ];
-    }
-
-    protected function getPackageProviders($_)
-    {
-        return [
-            \VPremiss\Crafty\CraftyServiceProvider::class,
-            \VPremiss\Arabicable\ArabicableServiceProvider::class,
-        ];
-    }
-
-    protected function defineDatabaseMigrations()
-    {
-        $this->loadMigrationsFrom(workbench_path('database/migrations'));
-    }
-
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
+        $this->enforceConfigurations();
 
         $this->arabicableMigrationBlueprintMacros();
+    }
 
-        if (! env('IN_CI', false)) {
-            $migration = include __DIR__ . '/../database/migrations/create_common_arabic_texts_table.php.stub';
-            $migration->up();
-        }
+    protected function enforceConfigurations()
+    {
+        $localTimezone = 'Asia/Riyadh';
+        config()->set('app.timezone', !env('IN_CI') ? $localTimezone : 'UTC');
+
+        config()->set('app.locale', 'ar');
+        config()->set('app.faker_locale', 'ar_SA');
+
+        config()->set('database.default', 'sqlite');
+        config()->set('database.connections.sqlite.database', ':memory:');
+
+        config()->set('cache.default', 'memcached');
     }
 }
