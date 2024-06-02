@@ -89,6 +89,7 @@ class Arabic
         return $uniqueFiltered ? $plurals->unique()->toArray() : $plurals->toArray();
     }
 
+    // TODO implement only and except approach
     public function removeCommons(string|array $words, array $excludedTypes = [], bool $asString = false): string|array
     {
         $baseCacheKey = CraftyPackage::getConfiguration('arabicable.common_arabic_text.cache_key');
@@ -114,7 +115,7 @@ class Arabic
 
         // ? Process and remove common texts except the excluded types
         foreach ($cachedCommonTexts as $type => $texts) {
-            if (in_array($type, $excludedTypes)) {
+            if (in_array(CommonArabicTextType::from($type), $excludedTypes)) {
                 continue;
             }
 
