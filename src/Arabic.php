@@ -7,6 +7,7 @@ namespace VPremiss\Arabicable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use VPremiss\Arabicable\Enums\ArabicLinguisticConcept;
+use VPremiss\Arabicable\Enums\ArabicSpecialCharacters;
 use VPremiss\Arabicable\Enums\CommonArabicTextType;
 use VPremiss\Arabicable\Facades\ArabicFilter;
 use VPremiss\Arabicable\Models\ArabicPlural;
@@ -21,11 +22,15 @@ class Arabic
     use Concerns\HandlesPunctuation;
     use Concerns\HandlesSpaces;
 
-    public const HARAKAT = ['ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ', 'ـ', 'ٗ'];
-
     public function removeHarakat(string $text): string
     {
-        return strtr($text, array_fill_keys(static::HARAKAT, ''));
+        return strtr(
+            $text,
+            array_fill_keys(
+                ArabicSpecialCharacters::Harakat->get(),
+                '',
+            ),
+        );
     }
 
     public function normalizeHuroof(string $text): string

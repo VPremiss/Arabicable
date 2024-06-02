@@ -6,6 +6,6 @@ namespace VPremiss\Arabicable\Support\Exceptions;
 
 use Exception;
 
-class ArabicableTextValidationException extends Exception
+class ArabicableFunctionException extends Exception
 {
 }

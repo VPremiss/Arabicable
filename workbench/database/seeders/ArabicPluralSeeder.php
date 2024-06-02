@@ -4063,6 +4063,7 @@ class ArabicPluralSeeder extends Seeder
             ['singular' => 'عب', 'plural' => 'أعباب'],
             ['singular' => 'عابد', 'plural' => 'عبدة'],
             ['singular' => 'عبد', 'plural' => 'عبيد'],
+            ['singular' => 'عبد', 'plural' => 'عباد'],
             ['singular' => 'معبد', 'plural' => 'معابد'],
             ['singular' => 'عبرة', 'plural' => 'عبر'],
             ['singular' => 'معبر', 'plural' => 'معابر'],

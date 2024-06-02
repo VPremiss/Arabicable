@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\DB;
 
-class UniqueArabicEvenWithHarakat implements ValidationRule
+class UniqueArabicWithSpecialCharacters implements ValidationRule
 {
     public function __construct(
         protected string $modelClass,
@@ -41,6 +41,7 @@ class UniqueArabicEvenWithHarakat implements ValidationRule
             return;
         }
 
+        // TODO ARE YOU SURE?
         $model::whereFuzzy($property, $value)
             ->get()
             ->each(function ($instance) use ($fail, $property) {

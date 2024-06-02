@@ -60,6 +60,7 @@ class ArabicableServiceProvider extends PackageServiceProvider implements Instal
     {
         return [
             'arabicable' => [
+                'special_characters' => fn ($value) => $this->validateSpecialCharactersConfig($value),
                 'property_suffix_keys' => [
                     'numbers_to_indian' => fn ($value) => $this->validatePropertySuffixKeysNumbersToIndianConfig($value),
                     'text_with_harakat' => fn ($value) => $this->validatePropertySuffixKeysTextWithHarakatConfig($value),

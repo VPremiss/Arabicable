@@ -1,9 +1,9 @@
 <?php return array (
-  'laravel/scout' => 
+  'caneara/quest' => 
   array (
     'providers' => 
     array (
-      0 => 'Laravel\\Scout\\ScoutServiceProvider',
+      0 => 'Quest\\ServiceProvider',
     ),
   ),
   'laravel/tinker' => 
