@@ -6,6 +6,33 @@ return [
 
     /*
      |--------------------------------------------------------------------------
+     | Special Characters (array<string, array<string>>) [12 outer entries]
+     |--------------------------------------------------------------------------
+     |
+     | The special characters that are dealt with during processing and filtering.
+     |
+     */
+
+    'special_characters' => [
+        'harakat' => ['ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ', 'ـ', 'ٗ'],
+
+        'indian_numerals' => ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        'arabic_numerals' => ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'],
+
+        'punctuation_marks' => ['.', '!', ':', '-'],
+        'foreign_punctuation_marks' => [',', ';', '?'],
+        'arabic_punctuation_marks' => ['،', '؛', '؟'],
+
+        'enclosing_marks' => [',', ';', '?'],
+        'enclosing_starter_marks' => ['(', '{', '[', '<', '<<',],
+        'enclosing_ender_marks' => [')', '}', ']', '>', '>>'],
+        'arabic_enclosing_marks' => ['/'],
+        'arabic_enclosing_starter_marks' => ['﴾', '⦗', '«'],
+        'arabic_enclosing_ender_marks' => ['﴿', '⦘', '»'],
+    ],
+
+    /*
+     |--------------------------------------------------------------------------
      | Property suffix keys (array<string, string>) [3 entries]
      |--------------------------------------------------------------------------
      |

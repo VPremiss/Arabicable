@@ -1,20 +1,25 @@
-name: pestphp-testing
+name: testing-and-analysis
 
 on:
   push:
+    branches:
+      - 'main'
+      - 'dev'
     paths:
+      - ".github/workflows/testing-and-analysis.yml"
       - "**.php"
-      - ".github/workflows/run-tests.yml"
-      - "phpunit.xml.dist"
       - "composer.json"
-      - "composer.lock"
+      - 'phpstan.neon.dist'
+      - "phpunit.xml.dist"
   pull_request:
+    branches:
+      - 'dev'
     paths:
+      - ".github/workflows/testing-and-analysis.yml"
       - "**.php"
-      - ".github/workflows/run-tests.yml"
-      - "phpunit.xml.dist"
       - "composer.json"
-      - "composer.lock"
+      - 'phpstan.neon.dist'
+      - "phpunit.xml.dist"
 
 jobs:
   test:

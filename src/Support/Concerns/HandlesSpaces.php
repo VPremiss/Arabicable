@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable\Support\Concerns;
 
-use VPremiss\Arabicable\Support\Exceptions\ArabicableTextValidationException;
+use VPremiss\Arabicable\Enums\ArabicSpecialCharacters;
+use VPremiss\Arabicable\Support\Exceptions\ArabicableValidationException;
 use VPremiss\Crafty\Facades\CraftyPackage;
 
 trait HandlesSpaces
 {
     public function validateForTextSpacing(string $text): void
     {
-        $pairMap = array_combine(static::ENCLOSING_STARTER_MARKS, static::ENCLOSING_ENDER_MARKS);
-        $pairMap += array_combine(static::ARABIC_ENCLOSING_STARTER_MARKS, static::ARABIC_ENCLOSING_ENDER_MARKS);
+        $pairMap = array_combine(
+            ArabicSpecialCharacters::EnclosingStarterMarks->get(),
+            ArabicSpecialCharacters::EnclosingEnderMarks->get(),
+        );
+        $pairMap += array_combine(
+            ArabicSpecialCharacters::ArabicEnclosingStarterMarks->get(),
+            ArabicSpecialCharacters::ArabicEnclosingEnderMarks->get(),
+        );
 
         // Check paired marks
         foreach ($pairMap as $starter => $ender) {
@@ -20,16 +27,19 @@ trait HandlesSpaces
             $enderCount = substr_count($text, $ender);
 
             if ($starterCount !== $enderCount) {
-                throw new ArabicableTextValidationException(
+                throw new ArabicableValidationException(
                     "Found the number of starter '$starter' not matching the number of ender '$ender' enclosing marks."
                 );
             }
         }
 
         // Check same-type marks
-        foreach (array_merge(static::ENCLOSING_MARKS, static::ARABIC_ENCLOSING_MARKS) as $mark) {
+        foreach (array_merge(
+            ArabicSpecialCharacters::EnclosingMarks->get(),
+            ArabicSpecialCharacters::ArabicEnclosingMarks->get(),
+        ) as $mark) {
             if (substr_count($text, $mark) % 2 !== 0) {
-                throw new ArabicableTextValidationException(
+                throw new ArabicableValidationException(
                     "Detected an uneven number of the enclosing mark '$mark'."
                 );
             }
@@ -64,12 +74,12 @@ trait HandlesSpaces
         $escapedMarks = array_map(fn ($mark) => preg_quote($mark, '/'), $filteredMarks);
 
         // Gather all special marks (enclosing and starter marks)
-        $specialMarks = array_merge(
-            static::ENCLOSING_MARKS,
-            static::ENCLOSING_STARTER_MARKS,
-            static::ARABIC_ENCLOSING_MARKS,
-            static::ARABIC_ENCLOSING_STARTER_MARKS
-        );
+        $specialMarks = arabicable_special_characters(only: [
+            ArabicSpecialCharacters::EnclosingMarks,
+            ArabicSpecialCharacters::EnclosingStarterMarks,
+            ArabicSpecialCharacters::ArabicEnclosingMarks,
+            ArabicSpecialCharacters::ArabicEnclosingStarterMarks,
+        ]);
         $escapedSpecialMarks = array_map(fn ($mark) => preg_quote($mark, '/'), $specialMarks);
 
         // Create a single string pattern from all escaped marks for general punctuation continuity
@@ -111,8 +121,8 @@ trait HandlesSpaces
     public function removeSpacesWithinEnclosingMarks(string $text, array $exclusions = []): string
     {
         $marks = array_merge(
-            static::ENCLOSING_MARKS,
-            static::ARABIC_ENCLOSING_MARKS,
+            ArabicSpecialCharacters::EnclosingMarks->get(),
+            ArabicSpecialCharacters::ArabicEnclosingMarks->get(),
         );
         $exclusions = array_merge(
             $exclusions,
@@ -121,16 +131,16 @@ trait HandlesSpaces
         $starterMarks = array_diff(
             array_merge(
                 $marks,
-                static::ENCLOSING_STARTER_MARKS,
-                static::ARABIC_ENCLOSING_STARTER_MARKS,
+                ArabicSpecialCharacters::EnclosingStarterMarks->get(),
+                ArabicSpecialCharacters::ArabicEnclosingStarterMarks->get(),
             ),
             $exclusions,
         );
         $enderMarks = array_diff(
             array_merge(
                 $marks,
-                static::ENCLOSING_ENDER_MARKS,
-                static::ARABIC_ENCLOSING_ENDER_MARKS,
+                ArabicSpecialCharacters::EnclosingEnderMarks->get(),
+                ArabicSpecialCharacters::ArabicEnclosingEnderMarks->get(),
             ),
             $exclusions,
         );
@@ -169,8 +179,8 @@ trait HandlesSpaces
             // Remove unwanted spaces before closing punctuation marks
             $enclosings = array_diff(
                 array_merge(
-                    static::ENCLOSING_ENDER_MARKS,
-                    static::ARABIC_ENCLOSING_ENDER_MARKS,
+                    ArabicSpecialCharacters::EnclosingEnderMarks->get(),
+                    ArabicSpecialCharacters::ArabicEnclosingEnderMarks->get(),
                 ),
                 CraftyPackage::getConfiguration('arabicable.space_preserved_enclosings'),
             );
@@ -200,7 +210,7 @@ trait HandlesSpaces
         $text = preg_replace("/^\s*'\s*/u", "'", $text);
         $text = preg_replace("/\s*'\s*$/u", "'", $text);
 
-        foreach (($marks = array_merge(self::PUNCTUATION_MARKS, self::ARABIC_PUNCTUATION_MARKS)) as $mark) {
+        foreach (($marks = array_merge(ArabicSpecialCharacters::PunctuationMarks->get(), ArabicSpecialCharacters::ArabicPunctuationMarks->get())) as $mark) {
             // Ensure $mark is properly quoted to escape regex special characters
             $quotedMark = preg_quote($mark, '/');
 

@@ -2,12 +2,14 @@
     بسم الله الرحمن الرحيم
 </div>
 
+<div align="left">
+
 # Arabicable
 
 Several effective strategies for managing Arabic text.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge&color=gray)](https://packagist.org/packages/vpremiss/arabicable)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/pestphp-testing.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/VPremiss/Arabicable/actions/workflows/pestphp-testing.yml?query=branch%3Amain++)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/testing-and-analysis.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/VPremiss/Arabicable/actions/workflows/testing-and-analysis.yml?query=branch%3Amain++)
 ![Codecov](https://img.shields.io/codecov/c/github/VPremiss/Arabicable?style=for-the-badge&color=purple)
 [![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=blue)](https://packagist.org/packages/vpremiss/arabicable)
 
@@ -29,17 +31,7 @@ Finally, take a look at the list of offered methods below (the [API](#API) secti
    composer require vpremiss/arabicable
    ```
 
-2. Add these package service providers manually to your [bootstrap/providers.php] file:
-
-   ```php
-   return [
-       App\Providers\AppServiceProvider::class,
-       VPremiss\Crafty\CraftyServiceProvider::class, // this as the first
-       VPremiss\Arabicable\ArabicableServiceProvider::class, // and this as the second
-   ];
-   ```
-
-3. Run the package [Artisan](https://laravel.com/docs/artisan) installer using this command:
+2. Run the package [Artisan](https://laravel.com/docs/artisan) installer using this command:
 
    ```bash
    php artisan arabicable:install
@@ -59,6 +51,8 @@ Finally, take a look at the list of offered methods below (the [API](#API) secti
    php artisan vendor:publish --tag="arabicable-seeders" --force
    ```
 
+3. Migrate and seed gracefully again on your end; keeping in mind that seeders do change regularily.
+
 
 ## Usage
 
@@ -70,7 +64,7 @@ Alright, so let's imagine we have `Note`(s) and we want to have their `content` 
 
   ```php
   use Illuminate\Database\Schema\Blueprint;
-  use Illuminate\Support\Facades\Schema; 
+  use Illuminate\Support\Facades\Schema;
   // ...
   Schema::create('notes', function (Blueprint $table) {
       $table->id();
@@ -190,6 +184,19 @@ You can combine that with whole filtered [`ArabicFilter::forSearch`](./src/Arabi
 
   <br>
 
+  | **Global Functions**                                       | Description                                                                                     |
+  |----------------------------------------------|-------------------------------------------------------------------------------------------------|
+  | `arabicable_special_characters(array\|ArabicSpecialCharacters $only = [], array\|ArabicSpecialCharacters $except = [], bool $combineInstead = false): array`                             | A quick helper to access the Laravel configuration [setting](./config/arabicable.php#L16) that contains all the special characters that are dealt with everywhere! For more details, you can check out [ArabicSpecialCharacters](./src/Enums/ArabicSpecialCharacters.php) enum that's also being utilized under the hood.                                                       |
+
+  <br>
+
+  | **Laravel Validation Rules**                                       | Description                                                                                     |
+  |----------------------------------------------|-------------------------------------------------------------------------------------------------|
+  | `Arabic(bool $withHarakat = false, bool $withPunctuation = false`                             | A basic Arabic [custom](https://laravel.com/docs/validation#custom-validation-rules) validation rule.                                                       |
+  | `ArabicWithSpecialCharacters(ArabicSpecialCharacters\|array $except = [], ArabicSpecialCharacters\|array $only = [])`                             | A more thoroughly studied rule with the same ArabicSpecialCharacters helper in mind. Defaulting to allowing "all" by default, of course.                                                       |
+
+  <br>
+
 ### Package Development
 
 - Change the `localTimezone` to yours in the [`TestCase`] file.
@@ -232,7 +239,8 @@ This package is open-sourced software licensed under the [MIT license](LICENSE.m
 - [AR-PHP](https://github.com/khaled-alshamaa/ar-php) package
 - [AR-PHP-Laravel](https://github.com/still-code/ar-php-laravel) package
 
+</div>
 
 <div align="center">
-   <br>والحمد لله رب العالمين
+    <br>والحمد لله رب العالمين
 </div>

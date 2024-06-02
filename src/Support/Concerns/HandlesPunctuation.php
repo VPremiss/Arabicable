@@ -4,46 +4,36 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable\Support\Concerns;
 
+use VPremiss\Arabicable\Enums\ArabicSpecialCharacters;
 use VPremiss\Crafty\Facades\CraftyPackage;
 
 trait HandlesPunctuation
 {
-    public const PUNCTUATION_MARKS = ['.', '!', ':', '-'];
-    public const FOREIGN_PUNCTUATION_MARKS = [',', ';', '?'];
-    public const ARABIC_PUNCTUATION_MARKS = ['،', '؛', '؟'];
-
-    public const ENCLOSING_MARKS = ["'", '"'];
-    public const ENCLOSING_STARTER_MARKS = ['(', '{', '[', '<', '<<',];
-    public const ENCLOSING_ENDER_MARKS = [')', '}', ']', '>', '>>'];
-    public const ARABIC_ENCLOSING_MARKS = ['/'];
-    public const ARABIC_ENCLOSING_STARTER_MARKS = ['﴾', '⦗', '«'];
-    public const ARABIC_ENCLOSING_ENDER_MARKS = ['﴿', '⦘', '»'];
-
     protected function getAllPunctuationMarks(): array
     {
-        return array_merge(
-            static::PUNCTUATION_MARKS,
-            static::FOREIGN_PUNCTUATION_MARKS,
-            static::ARABIC_PUNCTUATION_MARKS,
-            static::ENCLOSING_MARKS,
-            static::ENCLOSING_STARTER_MARKS,
-            static::ENCLOSING_ENDER_MARKS,
-            static::ARABIC_ENCLOSING_MARKS,
-            static::ARABIC_ENCLOSING_STARTER_MARKS,
-            static::ARABIC_ENCLOSING_ENDER_MARKS,
-        );
+        return arabicable_special_characters(only: [
+            ArabicSpecialCharacters::PunctuationMarks,
+            ArabicSpecialCharacters::ForeignPunctuationMarks,
+            ArabicSpecialCharacters::ArabicPunctuationMarks,
+            ArabicSpecialCharacters::EnclosingMarks,
+            ArabicSpecialCharacters::EnclosingStarterMarks,
+            ArabicSpecialCharacters::EnclosingEnderMarks,
+            ArabicSpecialCharacters::ArabicEnclosingMarks,
+            ArabicSpecialCharacters::ArabicEnclosingStarterMarks,
+            ArabicSpecialCharacters::ArabicEnclosingEnderMarks,
+        ]);
     }
 
     protected function getAllEnclosingMarks(): array
     {
-        return array_merge(
-            static::ENCLOSING_MARKS,
-            static::ENCLOSING_STARTER_MARKS,
-            static::ENCLOSING_ENDER_MARKS,
-            static::ARABIC_ENCLOSING_MARKS,
-            static::ARABIC_ENCLOSING_STARTER_MARKS,
-            static::ARABIC_ENCLOSING_ENDER_MARKS,
-        );
+        return arabicable_special_characters(only: [
+            ArabicSpecialCharacters::EnclosingMarks,
+            ArabicSpecialCharacters::EnclosingStarterMarks,
+            ArabicSpecialCharacters::EnclosingEnderMarks,
+            ArabicSpecialCharacters::ArabicEnclosingMarks,
+            ArabicSpecialCharacters::ArabicEnclosingStarterMarks,
+            ArabicSpecialCharacters::ArabicEnclosingEnderMarks,
+        ]);
     }
 
     protected function getFilteredPunctuationMarks(array $inclusions = [], array $exclusions = []): array
@@ -58,7 +48,11 @@ trait HandlesPunctuation
 
     public function convertPunctuationMarksToArabic(string $text): string
     {
-        $text = str_replace(static::FOREIGN_PUNCTUATION_MARKS, static::ARABIC_PUNCTUATION_MARKS, $text);
+        $text = str_replace(
+            ArabicSpecialCharacters::ForeignPunctuationMarks->get(),
+            ArabicSpecialCharacters::ArabicPunctuationMarks->get(),
+            $text,
+        );
 
         if ($normalizedMarks = CraftyPackage::getConfiguration('arabicable.normalized_punctuation_marks')) {
             foreach ($normalizedMarks as $mark => $fromOthers) {
