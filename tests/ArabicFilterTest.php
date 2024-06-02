@@ -24,6 +24,7 @@ Arabic;
 
     expect(substr($text, 0, -1))->toBe($expectedText);
 
+    // TODO test the configuration diff somewhere else and always test without it everywhere else!
     CraftyPackage::setConfiguration('arabicable.spacing_after_punctuation_only', true);
 
     $expectedText = <<<Arabic

@@ -6,6 +6,6 @@ namespace VPremiss\Arabicable\Support\Exceptions;
 
 use Exception;
 
-class ArabicableFunctionDoesNotExistException extends Exception
+class ArabicableRuleException extends Exception
 {
 }

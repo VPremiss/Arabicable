@@ -1,6 +1,6 @@
 laravel: ./workbench
 
-dont-discover: 
+dont-discover:
   - vpremiss/arabicable
   - vpremiss/crafty
 
@@ -15,3 +15,5 @@ workbench:
     - migrate:fresh
   discovers:
     config: true
+    web: true
+    views: true

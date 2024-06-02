@@ -4,37 +4,64 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable\Support\Concerns;
 
+use VPremiss\Arabicable\Enums\ArabicSpecialCharacters;
+
 trait HandlesNumerals
 {
-    public const INDIAN_NUMERALS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    public const ARABIC_NUMERALS = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-
     public function convertNumeralsToIndian(string $text): string
     {
-        return strtr($text, array_combine(static::INDIAN_NUMERALS, static::ARABIC_NUMERALS));
+        return strtr(
+            $text,
+            array_combine(
+                ArabicSpecialCharacters::IndianNumerals->get(),
+                ArabicSpecialCharacters::ArabicNumerals->get(),
+            ),
+        );
     }
 
     public function convertNumeralsToArabicAndIndianSequences(string $text): string
     {
-        $originalTextHasArabicNumerals = preg_match('/[' . implode('', static::ARABIC_NUMERALS) . ']/u', $text);
-        $originalTextHasIndianNumerals = preg_match('/[' . implode('', static::INDIAN_NUMERALS) . ']/', $text);
+        $originalTextHasArabicNumerals = preg_match(
+            '/[' . implode('', ArabicSpecialCharacters::ArabicNumerals->get()) . ']/u',
+            $text,
+        );
+        $originalTextHasIndianNumerals = preg_match(
+            '/[' . implode('', ArabicSpecialCharacters::IndianNumerals->get()) . ']/',
+            $text,
+        );
 
         if ($originalTextHasArabicNumerals) {
-            $text = preg_replace_callback('/[' . implode('', static::ARABIC_NUMERALS) . ']+/u', function ($matches) {
-                $arabicNumber = $matches[0];
-                $indianNumber = str_replace(static::ARABIC_NUMERALS, static::INDIAN_NUMERALS, $arabicNumber);
+            $text = preg_replace_callback(
+                '/[' . implode('', ArabicSpecialCharacters::ArabicNumerals->get()) . ']+/u',
+                function ($matches) {
+                    $arabicNumber = $matches[0];
+                    $indianNumber = str_replace(
+                        ArabicSpecialCharacters::ArabicNumerals->get(),
+                        ArabicSpecialCharacters::IndianNumerals->get(),
+                        $arabicNumber,
+                    );
 
-                return $arabicNumber . ' ' . $indianNumber;
-            }, $text);
+                    return $arabicNumber . ' ' . $indianNumber;
+                },
+                $text,
+            );
         }
 
         if ($originalTextHasIndianNumerals) {
-            $text = preg_replace_callback('/[' . implode('', static::INDIAN_NUMERALS) . ']+/', function ($matches) {
-                $indianNumber = $matches[0];
-                $arabicNumber = str_replace(static::INDIAN_NUMERALS, static::ARABIC_NUMERALS, $indianNumber);
+            $text = preg_replace_callback(
+                '/[' . implode('', ArabicSpecialCharacters::IndianNumerals->get()) . ']+/',
+                function ($matches) {
+                    $indianNumber = $matches[0];
+                    $arabicNumber = str_replace(
+                        ArabicSpecialCharacters::IndianNumerals->get(),
+                        ArabicSpecialCharacters::ArabicNumerals->get(),
+                        $indianNumber,
+                    );
 
-                return $indianNumber . ' ' . $arabicNumber;
-            }, $text);
+                    return $indianNumber . ' ' . $arabicNumber;
+                },
+                $text,
+            );
         }
 
         return $text;

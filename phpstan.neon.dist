@@ -7,6 +7,3 @@ parameters:
         - src
         - config
     tmpDir: build/phpstan
-    ignoreErrors:
-        - message: '#Call to an undefined method .*#'
-          path: src/Concerns/HasArabicableMigrationBlueprintMacros.php

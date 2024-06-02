@@ -4,10 +4,41 @@ declare(strict_types=1);
 
 namespace VPremiss\Arabicable\Support\Concerns;
 
+use VPremiss\Crafty\Enums\DataType;
+use VPremiss\Crafty\Facades\Crafty;
 use VPremiss\Crafty\Utilities\Configurated\Exceptions\ConfiguratedValidatedConfigurationException;
 
 trait HasConfigurationValidations
 {
+    protected function validateSpecialCharactersConfig($value): void
+    {
+        if (!is_array($value) || empty($value) || count($value) !== 12) {
+            throw new ConfiguratedValidatedConfigurationException(
+                'The configuration special characters must be a filled array of 12 elements.'
+            );
+        }
+
+        foreach ($value as $key => $innerArray) {
+            if (!is_string($key)) {
+                throw new ConfiguratedValidatedConfigurationException(
+                    'The configuration special characters array must have string keys. A non-string key was found!'
+                );
+            }
+
+            if (!is_array($innerArray) || empty($innerArray)) {
+                throw new ConfiguratedValidatedConfigurationException(
+                    'The configuration special characters array values must be arrays of strings. A non-array value was found!'
+                );
+            }
+
+            if (!Crafty::validatedArray($innerArray, DataType::String)) {
+                throw new ConfiguratedValidatedConfigurationException(
+                    'The configuration special characters array values must be string arrays. A non-string value was found in one of them!'
+                );
+            }
+        }
+    }
+
     protected function validatePropertySuffixKeysNumbersToIndianConfig($value): void
     {
         if (empty($value) || !is_string($value)) {
@@ -65,12 +96,10 @@ trait HasConfigurationValidations
                 );
             }
 
-            foreach ($normalizations as $normalization) {
-                if (!is_string($normalization)) {
-                    throw new ConfiguratedValidatedConfigurationException(
-                        'Normalized punctuation marks array configuration contains an array value that contains a non-string value! -Sorry!'
-                    );
-                }
+            if (!Crafty::validatedArray($normalizations, DataType::String)) {
+                throw new ConfiguratedValidatedConfigurationException(
+                    'Normalized punctuation marks array configuration contains an array value that contains a non-string value! -Sorry!'
+                );
             }
         }
     }
