@@ -2,9 +2,13 @@
 
 declare(strict_types=1);
 
+use VPremiss\Arabicable\ArabicableServiceProvider;
 use VPremiss\Arabicable\Enums\ArabicSpecialCharacters;
+use VPremiss\Arabicable\Enums\CommonArabicTextType;
 use VPremiss\Arabicable\Rules\Arabic;
 use VPremiss\Arabicable\Rules\ArabicWithSpecialCharacters;
+use VPremiss\Arabicable\Rules\UncommonArabic;
+use VPremiss\Crafty\Facades\CraftyPackage;
 
 describe('Arabic rule', function () {
     it('validates against non-arabic letters only', function () {
@@ -124,5 +128,24 @@ describe('ArabicWithSpecialCharacters rule', function () {
         expect(
             validator()->make(['text' => $nihonjin], ['text' => new ArabicWithSpecialCharacters])->fails()
         )->toBeTrue();
+    });
+});
+
+describe('UncommonArabic rule', function () {
+    it('validates against common Arabic of all or specific types', function () {
+        CraftyPackage::seed(ArabicableServiceProvider::class, 'CommonArabicTextSeeder');
+
+        $common = 'هو كان كذا';
+
+        expect(validator()->make(['common' => $common], ['common' => new UncommonArabic])->fails())->toBeTrue();
+        expect(
+            validator()->make(['common' => $common], ['common' => new UncommonArabic([
+                CommonArabicTextType::Separator,
+            ])])->fails()
+        )->toBeFalse();
+
+        $uncommon = 'من لم يدع قول الزور والعمل به والجهل ، فليس لله حاجة في أن يدع طعامه وشرابه';
+
+        expect(validator()->make(['common' => $uncommon], ['common' => new UncommonArabic])->fails())->toBeFalse();
     });
 });

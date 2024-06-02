@@ -56,6 +56,9 @@ class CommonArabicTextSeeder extends Seeder
             ['type' => CommonArabicTextType::Separator, 'content' => 'ليس'],
             ['type' => CommonArabicTextType::Separator, 'content' => 'ليست'],
 
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كذا'],
+            ['type' => CommonArabicTextType::Separator, 'content' => 'كذلك'],
+
             ['type' => CommonArabicTextType::Separator, 'content' => 'إذا'],
             ['type' => CommonArabicTextType::Separator, 'content' => 'فإذا'],
             ['type' => CommonArabicTextType::Separator, 'content' => 'لما'],

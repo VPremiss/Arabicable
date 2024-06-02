@@ -26,9 +26,9 @@
     22 => 'Spatie\\LaravelRay\\RayServiceProvider',
     23 => 'VPremiss\\Crafty\\CraftyServiceProvider',
     24 => 'VPremiss\\Arabicable\\ArabicableServiceProvider',
-    25 => 'Workbench\\App\\Providers\\WorkbenchServiceProvider',
-    26 => 'VPremiss\\Crafty\\CraftyServiceProvider',
-    27 => 'VPremiss\\Arabicable\\ArabicableServiceProvider',
+    25 => 'VPremiss\\Crafty\\CraftyServiceProvider',
+    26 => 'VPremiss\\Arabicable\\ArabicableServiceProvider',
+    27 => 'Workbench\\App\\Providers\\WorkbenchServiceProvider',
   ),
   'eager' => 
   array (
@@ -45,9 +45,9 @@
     10 => 'Spatie\\LaravelRay\\RayServiceProvider',
     11 => 'VPremiss\\Crafty\\CraftyServiceProvider',
     12 => 'VPremiss\\Arabicable\\ArabicableServiceProvider',
-    13 => 'Workbench\\App\\Providers\\WorkbenchServiceProvider',
-    14 => 'VPremiss\\Crafty\\CraftyServiceProvider',
-    15 => 'VPremiss\\Arabicable\\ArabicableServiceProvider',
+    13 => 'VPremiss\\Crafty\\CraftyServiceProvider',
+    14 => 'VPremiss\\Arabicable\\ArabicableServiceProvider',
+    15 => 'Workbench\\App\\Providers\\WorkbenchServiceProvider',
   ),
   'deferred' => 
   array (

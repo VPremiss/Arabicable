@@ -194,6 +194,7 @@ You can combine that with whole filtered [`ArabicFilter::forSearch`](./src/Arabi
   |----------------------------------------------|-------------------------------------------------------------------------------------------------|
   | `Arabic(bool $withHarakat = false, bool $withPunctuation = false`                             | A basic Arabic [custom](https://laravel.com/docs/validation#custom-validation-rules) validation rule.                                                       |
   | `ArabicWithSpecialCharacters(ArabicSpecialCharacters\|array $except = [], ArabicSpecialCharacters\|array $only = [])`                             | A more thoroughly studied rule with the same ArabicSpecialCharacters helper in mind. Defaulting to allowing "all" by default, of course.                                                       |
+  | `UncommonArabic(array $excludedTypes = [])`                             | A quick way to validate against common Arabic [types](./src/Enums/CommonArabicTextType.php).                                                       |
 
   <br>
 
