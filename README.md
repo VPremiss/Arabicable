@@ -8,10 +8,10 @@
 
 Several effective strategies for managing Arabic text.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/PACKAGE_LARAVEL_Arabicable.svg?style=for-the-badge&color=gray)](https://packagist.org/packages/vpremiss/PACKAGE_LARAVEL_Arabicable)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/PACKAGE_LARAVEL_Arabicable/testing-and-analysis.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/PACKAGE_LARAVEL_Arabicable/actions/workflows/testing-and-analysis.yml?query=branch%3Amain++)
-![Codecov](https://img.shields.io/codecov/c/github/vpremiss/PACKAGE_LARAVEL_Arabicable?style=for-the-badge&color=purple)
-[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/PACKAGE_LARAVEL_Arabicable.svg?style=for-the-badge&color=blue)](https://packagist.org/packages/vpremiss/PACKAGE_LARAVEL_Arabicable)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge&color=gray)](https://packagist.org/packages/vpremiss/arabicable)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/testing-and-analysis.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/PACKAGE_LARAVEL_Arabicable/actions/workflows/testing-and-analysis.yml?query=branch%3Amain++)
+![Codecov](https://img.shields.io/codecov/c/github/vpremiss/arabicable?style=for-the-badge&color=purple)
+[![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=blue)](https://packagist.org/packages/vpremiss/arabicable)
 
 
 ## Description
