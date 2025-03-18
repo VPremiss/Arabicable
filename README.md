@@ -9,7 +9,7 @@
 Several effective strategies for managing Arabic text.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vpremiss/arabicable.svg?style=for-the-badge&color=gray)](https://packagist.org/packages/vpremiss/arabicable)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/testing-and-analysis.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/PACKAGE_LARAVEL_Arabicable/actions/workflows/testing-and-analysis.yml?query=branch%3Amain++)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vpremiss/arabicable/testing-and-analysis.yml?branch=main&label=tests&style=for-the-badge&color=forestgreen)](https://github.com/vpremiss/PACKAGE_LARAVEL_arabicable/actions/workflows/testing-and-analysis.yml?query=branch%3Amain++)
 ![Codecov](https://img.shields.io/codecov/c/github/vpremiss/arabicable?style=for-the-badge&color=purple)
 [![Total Downloads](https://img.shields.io/packagist/dt/vpremiss/arabicable.svg?style=for-the-badge&color=blue)](https://packagist.org/packages/vpremiss/arabicable)
 
@@ -204,7 +204,7 @@ You can combine that with whole filtered [`ArabicFilter::forSearch`](./src/Arabi
 
 ### Changelogs
 
-You can check out the package's [changelogs](https://app.whatthediff.ai/changelog/github/vpremiss/PACKAGE_LARAVEL_Arabicable) online via WTD.
+You can check out the package's [changelogs](https://app.whatthediff.ai/changelog/github/vpremiss/PACKAGE_LARAVEL_arabicable) online via WTD.
 
 ### Progress
 
